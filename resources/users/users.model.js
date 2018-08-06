@@ -47,8 +47,6 @@ var UserSchema = new Schema({
         type:String,
         default:""
     },
-
-    password: String,
     role: String,
     pasreset:String,
     pasresetExpiry:{
@@ -60,7 +58,8 @@ var UserSchema = new Schema({
         default:false
     },
     purchased: [{ type: ObjectId, ref: 'Books' }]
-}, { timestamps: { createdAt: 'created_at' } });
+}, { timestamps: { createdAt: 'created_at' } 
+});
 
 
 

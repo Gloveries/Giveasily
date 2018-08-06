@@ -17,22 +17,28 @@ module.exports = function (User) {
          }
          req.logIn(user, function(err) {
              if(err) {
+                 const message = "Could not log in the user"
                  return res.status(500).json({
-                     err:'Could not log in the user: '+err
+                     err,
+                     message
                  });
              }
 
             //  if(!user.completed_registeration) return res.json({message:"complete your registeration"})
              //console.log('User in users: ', user);
-             var theUser = {"username":user.username, "_id":user._id, "admin":user.admin};
+             var theUser = {username:user.username, _id:user._id, admin:user.admin,
+             email:user.email,completed_registeration:user.completed_registeration
+            };
              var token = Verify.getToken(theUser);
+             theUser.token = token
 
-             res.status(200).json({
-                 status:'Login Succesful',
-                 success:true,
-                 token:token,
-                 user:user
-             });
+            //  res.status(200).json({
+            //      status:'Login Succesful',
+            //      success:true,
+            //      token:token,
+            //      user:user
+            //  });
+            res.json(theUser)
          });
      })(req,res,next);
         },

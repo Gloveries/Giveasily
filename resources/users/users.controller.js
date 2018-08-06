@@ -4,7 +4,6 @@ var userModel = require('./users.model');
 //called upon verification of account from email link
 module.exports = generateController(userModel,{
         getOne: function (req, res, next) {
-            req.params.id = "5b66cf9cd00cda377ca30527";
 
             userModel.findById(req.params.id, function (err, user) {
                 if(err) return next(err);

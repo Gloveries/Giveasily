@@ -8,8 +8,7 @@ module.exports = function (model, overrides) {
             });
         },
         createOne: function (req, res, next) {
-            var body = req.body;
-            model.create(body, function (err, doc) {
+            model.create(req.body, function (err, doc) {
                 if (err) next(err);
                 res.send(doc);
             });
