@@ -8,8 +8,9 @@ const authController = authControllerGenerator(user);
 
 // router.param('id', controller.findByParam);
 
-// router.route('/')
-//     .post(controller.createOne)
+router.route('/')
+    .delete(controller.deleteAll)
+    .get(controller.getAll)
 
 router.route('/:id')
     .get(controller.getOne)

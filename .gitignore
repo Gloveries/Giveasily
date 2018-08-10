@@ -3,3 +3,5 @@ data/
 .nyc_output/
 coverage/Giveasily/
 .coveralls.yml
+config.js
+getSecretkey.js

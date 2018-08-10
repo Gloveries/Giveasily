@@ -1,7 +1,7 @@
 var nodemailer = require('nodemailer');
 var mailerUtil = require('./mailer-util')
 
-function sendEmail(email,res,id) {
+function sendEmail(email,purpose,res,id) {
     console.log("called send mail")
     const transport = nodemailer.createTransport({
         service: 'Gmail',
@@ -10,7 +10,7 @@ function sendEmail(email,res,id) {
             pass: 'protege11',
         },
     });
-    const mailOptions = mailerUtil("registeration",email,id)
+    const mailOptions = mailerUtil(purpose,email,id)
 
 
     transport.sendMail(mailOptions, (error, info) => {

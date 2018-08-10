@@ -9,26 +9,29 @@ describe('CRUD for users resources', function () {
 
     var userId = "";
     var token = "";
+    before(function () {
+        chai.request(app)
+            .delete('/users/')
+    });
 
     it('Create new users', function (done) {
         chai.request(app)
             .post('/users/register')
             .send({
+                "username": "sam",
                 "name": "JOseph",
                 "email": "j@g.com",
                 "password": "j",
                 "role": "author",
                 "purchased": "",
-                "address":"",
-                "personal_phone":"08045473747"
+                "address": "",
+                "personal_phone": "08045473747"
             })
-            .end(function (err, res) {
+            .end(function(err, res) {
                 userId = res.body._id;
-                expect(res.body).to.have.property('_id');
-                expect(res.body).to.have.property('salt')
-                expect(res.body).to.have.property('halt');
-
-
+                expect(res.body).to.have.property('message')
+                expect(res.body.message).to.be.a('string');
+                expect(res.body.message).to.equal('registeration succesful');
                 done();
             });
     });
@@ -37,13 +40,16 @@ describe('CRUD for users resources', function () {
         chai.request(app)
             .post('/users/login')
             .send({
-                email: "sam@gmail.com",
-                password: "sam"
-            })
+    "email": "j@g.com",
+    "username": "sam",
+    "password": "j"
+})
             .end(function (err, res) {
                 token = res.body.token;
-                // expect(res.body).to.have.property('token');
-                expect(res.body).to.have.property('salt');
+                console.log(res.body)
+                expect(res.body).to.have.property('token');
+                expect(res.body.token).to.be.a('string');
+                expect(res.body).to.have.property('completed_registeration');
                 done();
             });
     });
@@ -57,7 +63,13 @@ describe('CRUD for users resources', function () {
                 password: "johnm"
             })
             .end(function (err, res) {
-                expect(res.body).to.have.property('error');
+                console.log(res.body)
+                expect(res.body).to.have.property('err');
+                expect(res.body.err).to.be.a('object');
+                expect(res.body.err.name).to.equal('IncorrectUsernameError');
+                expect(res.body.err.message).to.equal("Password or username is incorrect")
+
+
                 done();
             });
     });

@@ -20,6 +20,12 @@ module.exports = function (model, overrides) {
                 res.send(doc);
             });
         },
+        deleteAll:function(req,res,next) {
+            model.remove({},function(){
+                if(err) next(err);
+                res.json({message:"deleted all users"})
+            })
+        },
         getAll: function (req, res, next) {
             model.find({}, function (err, docs) {
                 if (err) next(err);

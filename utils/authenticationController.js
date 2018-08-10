@@ -50,7 +50,8 @@ module.exports = function (User) {
                 lastname: req.body.lastname,
                 reg_type: req.body.reg_type, // a company or an individual
                 email: req.body.email,
-                date_of_birth: req.body.date_of_birth
+                date_of_birth: req.body.date_of_birth,
+                registeration:{category:req.body.category,founder:req.body.founder}
             }),
                 req.body.password, function (err, user) {
                     if (err) {
@@ -62,7 +63,7 @@ module.exports = function (User) {
                         return res.json({message:"user not saved"})
                     }
                     console.log("i am sending a mail")
-                    sendMail(user.email,res,user._id)
+                    //sendMail(user.email,"registeration",res,user._id)
 
 
                     
