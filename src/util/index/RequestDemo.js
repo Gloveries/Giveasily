@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const RequestDemo = (props)=>(
     <section className="section-padding" id="built">

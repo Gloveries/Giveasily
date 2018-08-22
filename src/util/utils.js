@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 export const Preloader = (props)=>(
         <div id="preloader">
-      <div class="loader" id="loader-1"></div>
+      <div className="loader" id="loader-1"></div>
     </div>
 )
 

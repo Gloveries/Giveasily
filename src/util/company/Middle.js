@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const Middle = (props)=>(
     <section id="team" className="section-padding text-center">
@@ -19,9 +19,9 @@ const Middle = (props)=>(
                         <div className="team-overlay">
                             <div className="overlay-social-icon text-center">
                                 <ul className="social-icons">
-                                    <li><a href="#"><i className="lni-facebook-filled" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i className="lni-twitter-filled" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i className="lni-instagram-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-facebook-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-twitter-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-instagram-filled" aria-hidden="true"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -41,15 +41,15 @@ const Middle = (props)=>(
                         <div className="team-overlay">
                             <div className="overlay-social-icon text-center">
                                 <ul className="social-icons">
-                                    <li><a href="#"><i className="lni-facebook-filled" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i className="lni-twitter-filled" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i className="lni-instagram-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-facebook-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-twitter-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-instagram-filled" aria-hidden="true"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div className="info-text">
-                        <h3><a href="#">Ayoyemi Ayeyemi</a></h3>
+                        <h3><a >Ayoyemi Ayeyemi</a></h3>
                         <p>Co-Founder, Growth</p>
                     </div>
                 </div>
@@ -64,15 +64,15 @@ const Middle = (props)=>(
                         <div className="team-overlay">
                             <div className="overlay-social-icon text-center">
                                 <ul className="social-icons">
-                                    <li><a href="#"><i className="lni-facebook-filled" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i className="lni-twitter-filled" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i className="lni-instagram-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-facebook-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-twitter-filled" aria-hidden="true"></i></a></li>
+                                    <li><a ><i className="lni-instagram-filled" aria-hidden="true"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div className="info-text">
-                        <h3><a href="#">Imafidon Osama</a></h3>
+                        <h3><a >Imafidon Osama</a></h3>
                         <p>Co-Founder/CTO</p>
                     </div>
                 </div>

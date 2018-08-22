@@ -5,8 +5,8 @@ const Footer = (props)=>(
         <footer className="m-b-30">
     <div className="container">
         <div className="row">
-            <div style={{"line-height":"20px"}} className="col-md-4">
-                <h4 style={{"font-size":"16px","color":"#1E0E3C"}}> <b className="m-b-20">Solutions</b> </h4>
+            <div style={{"lineHeight":"20px"}} className="col-md-4">
+                <h4 style={{"fontSize":"16px","color":"#1E0E3C"}}> <b className="m-b-20">Solutions</b> </h4>
                 <p className="m-t-20"><a href="#/product/invoicing">Pledge Tracking</a></p>
                 <p><a href="#/product/payments">Recurring Giving</a></p>
                 <p><a href="#/product/transfers">Save2Give</a></p>
@@ -17,8 +17,8 @@ const Footer = (props)=>(
                 <p><a href="#/bots">Developer Tools</a></p>
             </div>
 
-            <div style={{"line-height":"20px"}} className="col-md-4">
-                <h4 style={{"font-size":"16px","color":"#1E0E3C"}}><b className="m-b-20"> Company </b></h4>
+            <div style={{"lineHeight":"20px"}} className="col-md-4">
+                <h4 style={{"fontSize":"16px","color":"#1E0E3C"}}><b className="m-b-20"> Company </b></h4>
                 <p className="m-t-20"><a href="pricing.html">Pricing</a></p>
                 <p><a href="https://#" target="_blank">Blog</a></p>
                 <p><a href="#/brand">Brand</a></p>
@@ -29,7 +29,7 @@ const Footer = (props)=>(
                 <p><a href="https://github.com/#" target="_blank">Open Source</a></p>
             </div>
 
-            <div style={{"line-height":"20px"}}  className="col-md-4">
+            <div style={{"lineHeight":"20px"}}  className="col-md-4">
                 <a href="../index.html" className="logo">
                 <img src="get-started/templates/giveasily/assets/images/logo-blue.png" height="25" />
                 </a> <br /><br />
@@ -39,7 +39,7 @@ const Footer = (props)=>(
                     <p>+234 (0) 809 775 7937</p>
                     <p>+234 (0) 805 027 6578 </p>
                     <p><a href="mailto:support@giveasily.com">support@giveasily.com</a></p>
-                    <p style={{"font-size":"22px","color":"#1E0E3C","padding-top":"10px"}}>
+                    <p style={{"fontSize":"22px","color":"#1E0E3C","paddingTop":"10px"}}>
                         <a href="http://facebook.com"><i className="zmdi zmdi-facebook"></i></a> 
                         <a href="http://twitter.com"><i className="zmdi zmdi-twitter"></i></a> 
                         <a href="http://instagram.com"> <i className="zmdi zmdi-instagram"></i></a>

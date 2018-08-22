@@ -6,9 +6,7 @@ import { ArrowUp, Preloader } from '../util/utils';
 import Features from '../util/index/Features'
 import Platforms from '../util/index/Platforms'
 import RequestDemo from '../util/index/RequestDemo';
-import Bottom from '../util/index/Bottom'
-
-
+import Bottom from '../util/index/Bottom';
 
 
 
@@ -37,6 +35,13 @@ class Index extends Component {
     
     {/*Preloader*/}
 <Preloader />
+
+
+
+
+
+
+
 </div>
         )
     }

@@ -1,0 +1,19 @@
+react loading animations -> https://reactjsexample.com/react-component-for-loading-animations/
+LOADING TYPES
+blank
+balls
+bars
+bubbles
+cubes
+cylon
+spin
+spinningBubbles
+spokes
+-------------------------------------------------------------------------------------------------------------
+react-chart
+https://reactjsexample.com/declarative-and-fluid-data-visualizations-for-react/
+
+-------------------------------------------------------------------------------------------------------------
+react-input-select
+https://www.npmjs.com/package/react-input-select
+yarn add react-input-select

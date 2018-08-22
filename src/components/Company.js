@@ -9,10 +9,7 @@ import { ArrowUp, Preloader } from '../util/utils'
 
 
 class Company extends Component {
-    constructor(props) {
-        super(props)
 
-    }
 
     render() {
        return (

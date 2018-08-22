@@ -1,0 +1,180 @@
+.filter {
+    width:150px;
+}
+
+.o-nav-ul {
+    font-size: 1.2em;
+    list-style-type:none;
+}
+
+.green {
+    color:green
+}
+
+.o-sidebar-header {
+    font-size: 1.5em;
+}
+
+.o-correct-btn-radius {
+    border-radius:5px
+}
+
+select:active {
+    outline:none
+}
+
+.show-border {
+    border:1px solid black /*remove this class later*/
+}
+
+.bottom-cards {
+border-radius:10px;
+background:blue;
+height:120px;
+width:30%;
+flex-direction:column;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white
+
+}
+
+.float-right {
+    float:right
+}
+
+.bg-theme {
+    background: #290c49
+}
+
+.theme-color {
+    color:"#290c49"
+}
+.bg-off-white {
+    background: #fcfcfc;
+}
+
+.bg-purple {
+    background:purple
+}
+
+.small {
+    font-size:1em
+}
+
+.medium-font-size {
+    font-size: 1.5em
+}
+
+.float-left {
+    float:left
+}
+
+.modify-icon-size {
+    font-size:3em;
+}
+
+.modify-icon-size__bigger {
+    font-size:10em;
+}
+.green {
+    color:green
+}
+.zero-border-radius {
+    border-radius:0px
+}
+.white {
+    color:white
+}
+
+.query-transactions {
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.query-transactions__form {
+    background:#f5f5f5
+}
+.block-dashboard {
+    background:rgba(1,1,1,0.8);
+    position:absolute;
+    width:100%;
+    z-index: 100000000000;
+    height:100%;
+    align-items:center;
+    justify-content:center;
+    align-items:center;
+    display:flex;
+}
+.align-center {
+    text-align:center;
+}
+.dont-display {
+    display:none
+}
+
+.display-blockade {
+    display:block
+}
+.blue {
+    color:blue
+}
+
+.position-relative {
+position:relative
+}
+.position-absolute {
+position:absolute
+} 
+
+
+.position-loader {
+    display:flex;
+    justify-content: center;
+    top:200px;
+    position:relative
+}
+.width-100-percent {
+    width:100%
+}
+/*.adjust-width-for-mobile {
+    width:100%;
+    border:1px solid red;
+}*/
+
+#email-confirmation-overlay {
+width:60%;
+height:60%;
+}
+
+/* calender class */
+.calender-day {
+    font-size:10px
+}
+
+.calender-popper {
+    width:200px;
+    font-size:13px
+
+}
+/*      end:       */
+
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+#email-confirmation-overlay {
+width:100%;
+}
+
+.calender-popper {
+    width:100px
+
+}
+
+}

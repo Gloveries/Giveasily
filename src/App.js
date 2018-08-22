@@ -4,7 +4,10 @@ import './App.css';
 import Company from './components/Company';
 import Header from './components/Header'
 import Index from './components/Index';
-import Dashboard from './components/Dashboard'
+import Dashboard from './components/Dashboard';
+import Register from './components/Register';
+
+import GlobalAdmin from './components/GlobalAdmin'
 
 
 
@@ -18,7 +21,9 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/company" component={Company} />
-            <Route exact path="/" component={Index} />
+                        <Route exact path="/dashboard" component={Dashboard} />
+
+            <Route exact path="/" component={GlobalAdmin} />
                         <Route exact path="/dashboard" component={Dashboard} />
 
 
