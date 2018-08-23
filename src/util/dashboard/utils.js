@@ -30,7 +30,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 export const TopCard =()=>(
 <div className="card" style={{width:"15rem"}}>
   <div className="card-body pt-4 pl-4 pr-4">
-    <h6  className="card-title green">Last 24hrs Hours&nbsp;<i className="lni-chevron-down ml-4"></i></h6>
+    <h6  className="card-title">Last 24hrs Hours&nbsp;<i className="lni-chevron-down ml-4"></i></h6>
         <p className="card-text"><i style={{fontSize:"1.3em"}} className="lni-user "> | 150000</i></p><br />
 
     <p className="card-subtitle mb-2 text-muted small">Coperate Users</p>
@@ -42,7 +42,7 @@ export const TopCard =()=>(
 
 export const EmailConfirmationOverlay = ({blockDashboard, email})=>{
 
-const classChoice = (blockDashboard)?"block-dashboard":"dont-display"
+const classChoice = (!blockDashboard)?"block-dashboard":"dont-display"
   return (
     <div className={classChoice}>
     <div id="email-confirmation-overlay" className="p-3" >
@@ -57,20 +57,20 @@ const classChoice = (blockDashboard)?"block-dashboard":"dont-display"
                 
                 <div className="m-t-40 card-box">
                     <div className="text-center">
-                        <h4 className="text-uppercase font-bold m-b-0 white">Confirm Email</h4>
+                        <h4 className="text-uppercase font-bold m-b-0 color-white">Confirm Email</h4>
                     </div>
                     <div className="panel-body text-center">
                         <img  src="assets/img/sam_img/mail_confirm.png" alt="img" height="100" className="thumb-lg m-t-20 center-block" />
-                        <p className="font-13 m-t-20 white">An email has been sent to&nbsp;&nbsp; 
-                            <span className="blue" id="cemail">{email || "demo@gmail.com"}</span> Please Click on the included link to activate your account.</p>                </div>
+                        <p className="font-13 m-t-20 color-white">An email has been sent to&nbsp;&nbsp; 
+                            <span className="color-blue" id="cemail">{email || "demo@gmail.com"}</span> Please Click on the included link to activate your account.</p>                </div>
                 </div>
 
                 
                 <div className="row">
                     <div className="col-sm-12 text-center">
-                        <p className="white">Already have account?
-                            <NavLink  to="https://giveasily.com.ng/login" className="text-white m-l-5">
-                            <span className="blue">Login</span>
+                        <p className="color-white">Already have account?
+                            <NavLink  to="/login" className="text-white m-l-5">
+                            <span className="color-blue">Login</span>
                             </NavLink>
                         </p>
                     </div>

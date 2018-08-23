@@ -7,22 +7,22 @@ import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Company from './Company'
 import Main from '../util/dashboard/Main';
-import {DashboardChart, SidebarTopContent} from '../util/dashboard/utils';
+import {DashboardChart, SidebarTopContent, EmailConfirmationOverlay} from '../util/dashboard/utils';
 import AppSettings from '../util/dashboard/Settings'
 import Donations from '../util/dashboard/Donations';
-import {addDonation} from '../Actions';
+import {addDonation, addUser} from '../Actions';
 import {connect} from 'react-redux';
 
 const mapStateToProps = state =>{
     return {
-        donation:state.donations
-    };
+        user:state.user
+    }
 }
 
 const mapDispatchToProps = dispatch =>{
-
     return {
-        addDonation:donation=>dispatch(addDonation(donation))
+        addDonation:donation=>dispatch(addDonation(donation)),
+        addUser:user=>dispatch(addUser(user))
     }
 }
 
@@ -90,11 +90,11 @@ class Dashboard extends Component {
             data:data,
             completed:100,
             settings:false,
-            blockDashboard:false
+            blockDashboard:false,
+            email:'osamaimafidon@gmaill.com'
         };
 
-        console.log(this.props)
-
+        console.log(this.props.user)
 
         this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
@@ -128,7 +128,10 @@ class Dashboard extends Component {
     render() {
         return (
 <div>
-    {/*<div style={{background:"green",width:"100%",height:"100%",position:"absolute",zIndex:"1222334444444"}}></div>*/}
+    {/*<div style={{background:"rgba(0,0,0,0.8)",width:"100%",height:"100%",position:"absolute",zIndex:"1222334444444"}}>
+    </div>*/}
+            {this.props.user.completed_registeration && <EmailConfirmationOverlay blockDashboard={this.state.blockDashboard} email={this.state.email} />}
+
                 {/*<div style={{position:"absolute", zIndex:"109029800"}}><LinearProgress variant="determinate" value={this.state.completed} /></div>*/}
 
     <Sidebar
@@ -141,7 +144,7 @@ class Dashboard extends Component {
         <br />
 
         <SidebarTopContent handleSidebar={this.handleSidebar} sidebarDocked={this.state.sidebarDocked}/>
-            {/*<Main  />*/}
+            <Main  />
             <br /><br /><br />
             {/*<button onClick={
                 (e)=>{e.preventDefault();this.props.addDonation({type:"addDonation", payload:{name:"e",amount:2} })}

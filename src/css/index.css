@@ -49,7 +49,7 @@ color:white
 }
 
 .theme-color {
-    color:"#290c49"
+    color:#290c49
 }
 .bg-off-white {
     background: #fcfcfc;
@@ -84,7 +84,7 @@ color:white
 .zero-border-radius {
     border-radius:0px
 }
-.white {
+.color-white {
     color:white
 }
 
@@ -117,8 +117,20 @@ color:white
 .display-blockade {
     display:block
 }
-.blue {
+
+.color-grey {
+    color:grey
+}
+.color-blue {
     color:blue
+}
+.color-blue-2 {
+    color:#0283eb
+}
+
+::placeholder {
+    color:#007fff;
+    opacity:1
 }
 
 .position-relative {
@@ -162,9 +174,40 @@ height:60%;
 
 
 
+/*.form-elegant .font-small {
+  font-size: 0.8rem; }
+
+.form-elegant .z-depth-1a {
+  -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+  box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25); }
+
+.form-elegant .z-depth-1-half,
+.form-elegant .btn:hover {
+  -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+  box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15); }*/
+
+/* for Register.js*/
+ .o-center-card {
+     display:flex;
+     justify-content:center;
+     align-items:center;
+ }
+
+ .o-prep-card {
+    width:50%;
+    margin:20px
+ }
+/* End Register.js */
+
+/* Coporate form */
+
+.coporate-form {
+    background: url('./Background.jpg');
+    background-size:cover;
+}
 
 
-
+/* End coporate form */
 
 @media only screen and (max-width: 600px) {
 
@@ -176,5 +219,11 @@ width:100%;
     width:100px
 
 }
+
+ .o-prep-card {
+    width:100%;
+    margin:10px
+ }
+
 
 }

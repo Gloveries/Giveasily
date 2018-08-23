@@ -48,7 +48,6 @@ populatePurposeField = function (companyName) {
 render() {
     return (
 <div>
-<EmailConfirmationOverlay blockDashboard={this.state.blockDashboard} email={this.state.user.email} />
 <TopBoxes />
 <br /><br />
         <div className="container" >

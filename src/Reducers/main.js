@@ -13,4 +13,12 @@ export const donationsReducer = function(state={}, action) {
     
 }
 
+export const userReducer = function(state={}, action) {
+    switch(action.type) {
+        case 'addUser':
+        return {...action.payload}
 
+        default:
+        return state;
+    }
+}
