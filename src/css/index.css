@@ -7,8 +7,12 @@
     list-style-type:none;
 }
 
-.green {
+.color-green {
     color:green
+}
+
+.bg-color-green {
+    background: green
 }
 
 .o-sidebar-header {
@@ -172,7 +176,10 @@ height:60%;
 }
 /*      end:       */
 
-
+.o-buttons {
+    background-image: linear-gradient(to right, #008aec , #015095);
+    border-radius: 20px;
+}
 
 /*.form-elegant .font-small {
   font-size: 0.8rem; }
@@ -205,6 +212,10 @@ height:60%;
     background: url('./Background.jpg');
     background-size:cover;
 }
+.coporate-form-body {
+    width:70%;
+    margin: 0 auto;
+}
 
 
 /* End coporate form */
@@ -224,6 +235,10 @@ width:100%;
     width:100%;
     margin:10px
  }
+
+ .coporate-form-body {
+    width:100%;
+}
 
 
 }
