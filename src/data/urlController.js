@@ -1,6 +1,6 @@
 const loginUrl = "http://localhost:3000/api/v1/users/login";
 const registerUrl = "http://localhost:3000/api/v1/users/register"
-
+const verifyBvn = "http://localhost:3000/api/v1/verify_bvn"
 export const getUrl = function(purpose){
     switch(purpose) {
         case 'registeration':
@@ -9,5 +9,8 @@ export const getUrl = function(purpose){
 
         case 'login':
         return loginUrl;
+
+        case 'verifybvn':
+        return verifyBvn;
     }
 }
