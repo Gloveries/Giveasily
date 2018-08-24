@@ -75,7 +75,7 @@ addUserToRedux({type,payload}){
                   <Input label="Your password" group type="password" name="password" validate required containerClass="mb-0"/>
                   <p className="font-small blue-text d-flex justify-content-end pb-3">Forgot<a href="#" className="blue-text ml-1"> Password?</a></p>
                   <div className="text-center mb-3">
-                    <Button rounded style={{backgroundImage:" linear-gradient(to right, #008aec , #015095)"}} type="submit" gradient="blue" rounded className="btn-block z-depth-1a">Sign in</Button>
+                    <Button type="submit" gradient="blue" className="btn-block z-depth-1a o-buttons">Sign in</Button>
                   </div>
                   </form>
                   <p className="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in with:</p>
