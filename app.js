@@ -5,6 +5,8 @@ var middleware = require('./middleware');
 var resources = require('./resources');
 var path = require('path');
 
+
+
 db();
 middleware(app);
 

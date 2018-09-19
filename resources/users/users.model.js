@@ -8,7 +8,11 @@ var ObjectId = mongoose.SchemaTypes.ObjectId;
 var socialMediaSchema = new Schema({
     platform: {
         type: String,
-        default: ""
+        required:true
+    },
+    active:{
+        type:Boolean,
+        required:true
     },
     url: {
         type: String,
@@ -18,30 +22,107 @@ var socialMediaSchema = new Schema({
         timestamps: { createdAt: 'created_at' }
     })
 
+var authorizationSchema = new Schema({
+    
+    authorization_code: String, //Authorization code that can be used to issue new billing
+    
+    bin: String, // card bin number
+    
+    last4: String, // last four digit of card
+    
+    exp_month: String,
+    
+    exp_year: String,
+    
+    channel: String,
+    
+    card_type: String,
+    
+    bank: String,
+    
+    country_code: String,
+    
+    brand: String,
+    
+    reusable: Boolean,
+    
+    signature: String 
+    
+})
+
+
 var UserSchema = new Schema({
-    firstName: String,
-    lastname: String,
-    email: String,
-    date_of_birth: Number,
+    first_name: String,                 //this is required
+
+    last_name: String,                  //this is required
+
+    email: String,                      //this is required
+
+    plan: {
+        type: String,                    //this is required
+        enum: ['basic', 'premium']
+    },
+    business_name:{
+        type:String,
+        default:""
+    },
+    ngo:{
+        type:Boolean,
+        default:true
+    },
+    abbreviated_name:{
+        type:String,
+        default:""
+    },
+    church:{
+        type:Boolean,
+        default:true
+    },
+    coporate_address:{
+        type:String,
+        default:""
+    },
+
+    global_admin: {
+        type: Boolean,
+        default: false
+    },
+    completed_email_verification: {
+        type: Boolean,
+        default: false
+    },
+    date_of_birth: {
+        type: String,
+        default: new Date().toDateString()
+    },
     previous_method_of_collection: {
         type: String,
         default: "not specified"
     },
-    registeration_: {
-        category: {
-            type: String, //coperate or personal
-        },
-        founder: {
-            type: Boolean //compulsory field
-        },
-        verified_bvn: {
-            type: Boolean,
-            default: false
-        },
-        completed_registeration: {
-            type: Boolean,
-            default: false
-        }
+    category: {
+        type: String, //coperate or personal
+        default: 'coporate'
+    },
+    founder: {
+        type: Boolean, //compulsory field
+        default: true
+
+    },
+    other_platforms:{
+        type:String,
+        default:""
+    },
+    other_methods:{
+        type:String,
+        default:""
+    },
+    verified_bvn: {
+        type: Boolean,
+        default: false
+    },
+    complete: {
+        type: Boolean,
+        default: false
     },
     official_phone: {
         type: String,
@@ -67,14 +148,17 @@ var UserSchema = new Schema({
     admin: {
         type: Boolean,
         default: false
-    }
+    },
+    authorization:[authorizationSchema]
 }, {
         timestamps: { createdAt: 'created_at' }
     });
 
 
-
-UserSchema.plugin(passportLocalMongoose)
+var options = {
+    usernameField:'email'
+}
+UserSchema.plugin(passportLocalMongoose,options)
 
 var UserModel = mongoose.model('Users', UserSchema);
 

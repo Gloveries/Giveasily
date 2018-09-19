@@ -1,7 +1,7 @@
 var nodemailer = require('nodemailer');
 var mailerUtil = require('./mailer-util')
 
-function sendEmail(email,purpose,res,id) {
+function sendEmail(email,purpose,id) {
     console.log("called send mail")
     const transport = nodemailer.createTransport({
         service: 'Gmail',
@@ -10,17 +10,15 @@ function sendEmail(email,purpose,res,id) {
             pass: 'protege11',
         },
     });
-    const mailOptions = mailerUtil(purpose,email,id)
-
+    const mailOptions = mailerUtil(email,purpose,id);
 
     transport.sendMail(mailOptions, (error, info) => {
         console.log("in the email code")
         if (error) {
             console.log(error);
-            res.json({message:"failed to send a verification email"})
+            return;            
         }
         console.log(`Message sent: ${info.response}`);
-        res.json({message:"log on to your mail to complete registeration"})
     });
 }
 

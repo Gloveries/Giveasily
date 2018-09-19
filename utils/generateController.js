@@ -10,7 +10,7 @@ module.exports = function (model, overrides) {
         createOne: function (req, res, next) {
             model.create(req.body, function (err, doc) {
                 if (err) next(err);
-                res.send(doc);
+                    res.send(doc);
             });
         },
         deleteOne: function (req, res, next) {
@@ -32,17 +32,19 @@ module.exports = function (model, overrides) {
                 res.status(200).send(docs);
             });
         },
+        
         getOne: function (req, res, next) {
-            var id = req.docId;
-            model.find({ _id: id }, function (err, docs) {
-                if (err) next(err);
-                res.send(docs);
+            const id = req.decoded._id || req.params._id;
+            model.findById(id, function (err, docs) {
+                if (err) return next(err);
+                res.json(docs);
             });
         },
         updateOne: function (req, res, next) {
-            var id = req.docId;
+            var id = req.decoded._id;
             var body = req.body;
-            model.findOneAndUpdate({ _id: id }, body, function (err, doc) {
+            
+            model.findByIdAndUpdate(id ,{$set:{body} },{new:true}, function (err, doc) {
                 if (err) next(err);
                 var updated = Object.assign({}, doc, body);
                 res.status(200).send(updated);

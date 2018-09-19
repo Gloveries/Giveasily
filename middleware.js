@@ -6,9 +6,11 @@ var path = require('path');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./resources/users/users.model')
+var cors = require('cors') 
 
 
 module.exports = function (app) {
+    app.use(cors())
     app.use(logger('dev'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
