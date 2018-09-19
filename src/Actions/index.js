@@ -10,3 +10,9 @@ export const addUser = function({type,payload}) {
         type,payload
     }
 }
+
+export const addDonationsorPledges = function({type, payload}) {
+    return {
+        type,payload
+    }
+}

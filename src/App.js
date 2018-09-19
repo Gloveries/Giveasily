@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Company from './components/Company';
-import Header from './components/Header'
-import Index from './components/Index';
 import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Login from './components/Login'
-import TabsPage from './components/select';
 import GlobalAdmin from './components/GlobalAdmin';
 import CoporateRegisteration from './components/Coporate_Registeration'
 import {EmailConfirmationOverlay} from './util/dashboard/utils';
-
-
+import PledgesUnredeemed from './components/PledgesUnredeemed';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-
+import Donations from './components/Donations';
+import VerifyCoporateUser from './components/VerifyCoporateUser';
+import Pages from './components/Pages';
+import ViewPage from './components/ViewPage';
+import FundingSources from './components/FundingSources';
 class App extends Component {
 
   render() {
@@ -23,14 +21,16 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Switch>
-            <Route  path="/company" component={Company} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route exact path="/" component={Dashboard} />
             <Route path="/register" component={Register} />
             <Route  path="/login" component={Login} />
-            <Route  path="/dashboard" component={Dashboard} />
-            <Route exact path="/" component={CoporateRegisteration} />
-
-
+            <Route  path="/tabled" component={Donations} />
+            <Route path="/users" component={VerifyCoporateUser} />
+            <Route exact  path="/pages" component={Pages} />
+            <Route path='/pages/:id/:slug' component={ViewPage} />
+            <Route path='/funding' component={FundingSources} />
+            <Route path="/registeration/coporate" component={CoporateRegisteration} />
+            
             {/*<Route path="/client/workshops" component={ClientWorkshop} />
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />

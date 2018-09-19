@@ -22,3 +22,13 @@ export const userReducer = function(state={}, action) {
         return state;
     }
 }
+
+export const donationsOrPledgesReducer = function(state=[], action){
+    switch(action.type){
+        case 'addDonationsOrPledges':
+        return action.payload;
+
+        default:
+        return state;
+    }
+}

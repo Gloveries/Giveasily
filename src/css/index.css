@@ -3,20 +3,40 @@
 }
 
 .o-nav-ul {
-    font-size: 1.2em;
     list-style-type:none;
 }
+.o-loader-class {
+visibility:visible;
+display:flex;
+justify-content:center;
+}
+.o-visibility-hidden {
+    visibility:hidden
+}
 
+.o-visibility-visible {
+    visibility:visible;
+}
 .color-green {
     color:green
+}
+.o-letter-spacing {
+letter-spacing: 0.1em
+}
+.color-red {
+    color:red
 }
 
 .bg-color-green {
     background: green
 }
+.bg-color-grey {
+    background:grey
+}
 
 .o-sidebar-header {
-    font-size: 1.5em;
+    font-weight: 500;
+    letter-spacing: 3px
 }
 
 .o-correct-btn-radius {
@@ -59,12 +79,16 @@ color:white
     background: #fcfcfc;
 }
 
+.bg-red {
+    background:red
+}
+
 .bg-purple {
     background:purple
 }
 
 .small {
-    font-size:1em
+    font-size:0.9em
 }
 
 .medium-font-size {
@@ -111,27 +135,44 @@ color:white
     align-items:center;
     display:flex;
 }
+/*Main*/
+.donation-form-card {
+    width:70%
+}
+
 .align-center {
     text-align:center;
 }
 .dont-display {
     display:none
 }
-
+.donation-form {
+    margin:0 auto;
+    width:80%
+}
 .display-blockade {
     display:block
 }
-
+.medium-height {
+    height:30px
+}
 .color-grey {
     color:grey
 }
+
+.color-grey-2 {
+    color:#333
+}
+/*End  Main*/
 .color-blue {
     color:blue
 }
 .color-blue-2 {
     color:#0283eb
 }
-
+.smaller-text {
+    font-size:0.7em
+}
 ::placeholder {
     color:#007fff;
     opacity:1
@@ -206,8 +247,24 @@ height:60%;
  }
 /* End Register.js */
 
-/* Coporate form */
 
+/*Login Card */
+.login-card {
+    width:35%;
+    margin:0 auto
+}
+/*END LOGIN*/
+/* Coporate form */
+.social-checkbox {
+    width:20px;
+    height:20px;
+}
+
+.top-form-select {
+    width:150px;
+    float:left;
+    margin-right:10px;
+}
 .coporate-form {
     background: url('./Background.jpg');
     background-size:cover;
@@ -217,8 +274,121 @@ height:60%;
     margin: 0 auto;
 }
 
+.width-50-percent {
+    width:50%;
+}
+
+.width-70-percent {
+    width:70%;
+}
+
+.margin-zero-auto {
+    margin:0 auto;
+}
+
+.font-weight-bold {
+    font-weight: 700
+}
+
+.modify-input-border {
+    border:none;
+    border-bottom:1px solid #eee;
+    border-radius:0px
+}
 
 /* End coporate form */
+
+/* Unredeemed Pledge */
+
+.pledge-redeem-alert {
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    position:absolute;
+    width:100px;
+    height:30px;
+    top:-10px;
+    left:10px;
+    color:white;
+    z-index:10
+}
+.o-position-flex-content-end {
+    display:flex;
+    justify-content: flex-end
+}
+/*End Pledge */
+
+.report-issue {
+    width:250px;
+    height:40px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color:#290c49;
+    position:relative;
+    padding:0px;
+    bottom:0px;
+    right:0px;
+}
+.cursor-pointer {
+    cursor:pointer
+}
+
+.border-right-white {
+    border-right:1px solid white;
+}
+
+/*BEGIN VIEW PAGE COMPONENT*/
+.center-page  {
+    width:80%;
+    margin: 0 auto
+}
+
+.border-bottom-theme-color {
+    border-bottom:1px solid #290c49
+}
+
+.bg-color-grey-3 {
+    background:#eee
+}
+
+.o-overflow-x-auto {
+    overflow-x:auto;
+}
+.pages-card-format {
+    background:white;
+    width:100%
+}
+.input-themed-border {
+    border: 1px solid #290c49;
+}
+.modify-input {
+    border-right:none;
+    border-left:none;
+    background:white
+}
+
+.page-content-layout {
+    display:flex;
+    justify-content:space-between;
+}
+.color-blackish {
+    color:#555
+}
+
+/*END VIEW PAGE*/
+/*@media only screen and (max-width: 750px) {
+
+.login-card {
+    width:60%
+}
+}*/
+/*Table Material.js component*/
+/*style={{display:this.state.allDonationsOrPledges.length === 0?"flex":"none",justifyContent:"center"}}*/
+.tfoot-content {
+    display:flex;
+    justify-content: center
+}
+/*End Table Material component*/
 
 @media only screen and (max-width: 600px) {
 
@@ -240,5 +410,22 @@ width:100%;
     width:100%;
 }
 
-
+.donation-form {
+    width:100%;
+}
+/*view Page*/
+.center-page  {
+    width:100%;
+}
+/*End Page*/
+/*Login Page*/
+.login-card {
+    width:100%
+}
+/*End Login */
+/*Main*/
+.donation-form-card {
+    width:100%
+}
+/*End  Main*/
 }

@@ -1,49 +1,49 @@
 export const registeredCompanies = [
     {
         name:'KICC',
-        purposes:['new bus','tithe','offering','church_building','other'],
+        church:true,
         subAccount:'ACT_2838747774',
         branch:'mushin'
     },
     {
         name:'RCCG',
-        purposes:['private jet','tithe','offering','church_building','other'],
+        church:true,
         subAccount:'ACT_2838747774',
         branch:'london'
     },
     {
         name:'WINNERS',
-        purposes:['library','tithe','offering','church_building','other'],
+        church:true,
         subAccount:'ACT_2838747774',
         branch:'apapa'
     },
     {
         name:'CCC',
-        purposes:['wafbec','tithe','offering','church_building','other'],
+        church:true,
         subAccount:'ACT_2838747774',
         branch:'benin'
     },
     {
-        name:'HOTR',
-        purposes:['tithe','offering','church_building','other'],
+        name:'Obahatopee',
+        church:false,
         subAccount:'ACT_2838747774',
         branch:'lekki'
     },
     {
         name:'CAC',
-        purposes:['tithe','offering','church_building','other'],
+        church:true,
         subAccount:'ACT_2838747774',
         branch:'lekki'
     },
     {
-        name:'HOD',
-        purposes:['tithe','offering','church_building','other'],
+        name:'Red Cross',
+        church:false,
         subAccount:'ACT_2838747774',
         branch:'lekki'
     },
     {
-        name:'ENI',
-        purposes:['tithe','offering','church_building','other'],
+        name:'Toast Masters',
+        church:false,
         subAccount:'ACT_2838747774',
         branch:'lekki'
     }

@@ -5,11 +5,11 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 import { createStore, combineReducers} from 'redux';
 import { Provider } from 'react-redux';
-import {donationsReducer, userReducer} from './Reducers/main'
+import {donationsReducer, userReducer, donationsOrPledgesReducer} from './Reducers/main'
 
 
 
@@ -38,13 +38,15 @@ const userAction = {
 
 const allReducers = combineReducers({
     user:userReducer,
-    donations:donationsReducer
+    donations:donationsReducer,
+    donationsOrPledges:donationsOrPledgesReducer
 })
 
 const store = createStore(
     allReducers,{
-        donations:[{name:"sam",amount:5000}],
-        user:{}
+        donations:[],
+        user:{},
+        donationsOrPledges:[]
     },
     window.devToolsExtension && window.devToolsExtension()
 )
