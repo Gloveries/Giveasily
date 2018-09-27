@@ -218,9 +218,9 @@ handleView = (component)=>{
 <div>
     {/*<div style={{background:"rgba(0,0,0,0.8)",width:"100%",height:"100%",position:"absolute",zIndex:"1222334444444"}}>
     </div>*/}
-            {/*{!this.props.user.email_verified && <EmailConfirmationOverlay blockDashboard={this.state.blockDashboard} email={this.props.user.email} />}*/}
+    {!this.props.user.email_verified && <EmailConfirmationOverlay blockDashboard={this.state.blockDashboard} email={this.props.user.email} />}
 
-                {/*<div style={{position:"absolute", zIndex:"109029800"}}><LinearProgress variant="determinate" value={this.state.completed} /></div>*/}
+    {/*<div style={{position:"absolute", zIndex:"109029800"}}><LinearProgress variant="determinate" value={this.state.completed} /></div>*/}
 <LinearProgress variant="determinate" style={{height:"2px"}} value={this.state.completed} />
 
     <Sidebar
@@ -236,10 +236,8 @@ handleView = (component)=>{
         
         
 
-           {this.state.contents.main && <Main  />}
-            {this.state.contents.donations && <Donations />}
-            {this.state.contents.users && <VerifyCoporateUser />}
-            {this.state.contents.pages && <Pages />}
+           {/*<Main  />*/}
+
             
             <br /><br /><br />
             {/*<button onClick={

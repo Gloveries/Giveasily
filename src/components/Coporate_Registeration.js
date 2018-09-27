@@ -59,6 +59,7 @@ class CoporateRegisteration extends Component {
 
   handleFormSubmit(e) {
       e.preventDefault();
+      const that = this;
       const first_name = this.state.first_name;
       const last_name = this.state.last_name;
       const bvn = this.state.bvn;
@@ -106,11 +107,10 @@ class CoporateRegisteration extends Component {
     }
       axios(options)
         .then(function(response){
-            console.log(response)
-            if(response.status === 200) {
-                if(response.data.title === 'success') alert(response.data.message);
-                
-            }
+            if(response.data.title === 'success') {
+                // that.history.push('/')  
+                alert('success')
+            }      
         })
         .catch(function(err){
             console.log(err)
@@ -242,7 +242,7 @@ class CoporateRegisteration extends Component {
             <div className={dateClass}>
                 <label className="color-grey">Date of Birth</label>
                 <input defaultValue={this.state.formatted_dob} disabled={this.state.verifiedBvn} type="date" className="form-control" />
-            </div>
+            </div><br />
              <div className="row">
                 <div className="col">
                     <input id="email" name="official_phone" placeholder="Official Phone" className="form-control" type="text" />

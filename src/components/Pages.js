@@ -39,14 +39,18 @@ const styles = {
 class SimpleDialog extends React.Component {
 
     state = {
-        inputElements:['input-0']
+        inputElements:['input-0'],
+        buttonText:"CREATE PAGE"
     }
 
 createPage = (e)=>{
     e.preventDefault();
     const name = e.target.name.value;
     const amount = e.target.amount.value;
-    const url = getUrl('pages')
+    const url = getUrl('pages');
+    this.setState({
+        buttonText:"CREATING..."
+    })
 
     const body = (amount === "")?{name}:{name,amount}
     console.log(body)
@@ -63,9 +67,21 @@ createPage = (e)=>{
     axios(options)
         .then((response)=>{
             console.log(response.data)
+                this.setState({
+                    buttonText:"CREATE PAGE"
+                })
         })
-        .catch(function(err){
-            console.log(err)
+        .catch((err)=>{
+            // const error = err.response;
+            console.log(err.response)
+            console.log(typeof err.response)
+            for (let key in err) {
+                console.log(key +" --> "+ err[key])
+            }
+            this.setState({
+                buttonText:"CREATE PAGE",
+        
+            })
         })
 }
 handleClose = () => {
@@ -100,8 +116,8 @@ this.props.onClose(this.props.selectedValue);
                                 *Leave the <strong>amount</strong> field empty if you want to be able to collect any amount
                             </small>
                         </div><br />
-                        <button className="btn bg-theme p-2" type="submit">
-                            <BookIcon />&nbsp;CREATE PAGE</button>
+                        <button disabled={(this.state.buttonText === 'CREATING...')?true:false} className="btn bg-theme p-2" type="submit">
+                            <BookIcon />&nbsp;{this.state.buttonText}</button>
                     </form>
                 </div>
                 {/*code for adding custom fields

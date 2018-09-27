@@ -4,7 +4,7 @@ const registerUrl = `${BASEURL}/api/v1/users/register`
 const verifyBvn = `${BASEURL}/api/v1/verify_bvn`;
 const usersUrl = `${BASEURL}/api/v1/users`;
 const complete_coporate_user_reg =`${BASEURL}/api/v1/users/coporate/complete_reg`;
-const create_pledge = `${BASEURL}/api/v1/pledges`;
+const pledge = `${BASEURL}/api/v1/pledges`;
 const get_unredeemed_pledge =`${BASEURL}/api/v1/pledges/unredeemed`;
 const verify_payment = `${BASEURL}/api/v1/donations/verify`
 const get_all_donations =`${BASEURL}/api/v1/donations`;
@@ -43,8 +43,8 @@ export const getUrl = function(purpose){
         case 'coporate_registeration':
         return complete_coporate_user_reg;
 
-        case 'create_pledge':
-        return create_pledge;
+        case 'pledge':
+        return pledge;
 
         case 'get_unredeemed_pledge':
         return get_unredeemed_pledge;

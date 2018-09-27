@@ -35,8 +35,9 @@ letter-spacing: 0.1em
 }
 
 .o-sidebar-header {
-    font-weight: 500;
-    letter-spacing: 3px
+    font-weight: 700;
+    font-size:0.9em
+    /*letter-spacing: 3px*/
 }
 
 .o-correct-btn-radius {
@@ -75,6 +76,35 @@ color:white
 .theme-color {
     color:#290c49
 }
+.bg-white {
+    background:"white"
+}
+/* superpose animate.css animations speed*/
+#o-dashboard-notification {
+
+  animation-duration: 0.3s;
+  -moz-animation-duration: 0.3s;
+  -webkit-animation-duration: 0.3;
+  /*-moz-animation-delay:0.5s;
+  -webkit-animation-delay:0.5s;
+  animation-delay: 0.5s;*/
+  /*animation-iteration-count: infinite;*/
+
+}
+
+#o-dashboard-notification-detail {
+  animation-duration: 0.3s;
+  -moz-animation-duration: 0.3s;
+  -webkit-animation-duration: 0.3;
+    /*-moz-animation-delay:0.5s;
+  -webkit-animation-delay:0.5s;
+  animation-delay: 0.5s;*/
+
+}
+
+/*End overide animate.css animation speed*/
+
+
 .bg-off-white {
     background: #fcfcfc;
 }
@@ -90,6 +120,8 @@ color:white
 .small {
     font-size:0.9em
 }
+
+
 
 .medium-font-size {
     font-size: 1.5em
@@ -135,11 +167,27 @@ color:white
     align-items:center;
     display:flex;
 }
-/*Main*/
-.donation-form-card {
-    width:70%
+.very-small {
+    font-size:0.5em
 }
+/*Main*/
 
+ /*style={{background:"#fbfbfb", borderRadius:"5px",position:"relative"}}*/
+.o-notification-list {
+background:#fbfbfb;
+border-radius:5px;
+position:relative;
+}
+.o-view-icon {
+    position:absolute;
+    background:#cdb675;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    right:-5px;
+    top:27px;
+    cursor:pointer;
+}
 .align-center {
     text-align:center;
 }
@@ -359,7 +407,7 @@ height:60%;
     width:100%
 }
 .input-themed-border {
-    border: 1px solid #290c49;
+    border: 0.5px solid #290c49;
 }
 .modify-input {
     border-right:none;
@@ -424,8 +472,20 @@ width:100%;
 }
 /*End Login */
 /*Main*/
-.donation-form-card {
-    width:100%
-}
+
 /*End  Main*/
 }
+/*BEGIN SIDEBAR MENU*/
+.color-blue-variation-1 {
+    color:#3f4b9f
+}
+/*END SIDEBAR MENU*/
+
+/*DOnations*/
+.o-donations-select {
+    width:120px;
+    float:left;
+    margin-right:10px
+}
+
+/*END DONATIONS*/

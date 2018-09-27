@@ -267,7 +267,6 @@ const options = {
     const handleLoading = this.state.showLoading ? "display-blockade":"dont-display"
     return (
 <div className="container">
-    <br />
         <div>
             <span className="top-form-select" >
                 <select name="category" value={this.state.category} onChange={this.handleInput} className="form-control">
@@ -279,13 +278,13 @@ const options = {
             <div style={{float:"right"}} className="row">
                 <div className="col"><span className="small">Start Date</span>
                     <DatePicker dayClassName={()=>"calender-day"} 
-               className="calender-popper form-control" calendarClassName="calender" withPortal
+               className="calender-popper form-control" calendarClassName="calender" 
                showYearDropdown dropdownMode="select" name="startdate"
                selected={this.state.startDate} onChange={this.handleStartDateChange} placeholderText="Start date" />
                </div>
                 <div className="col"><span className="small">End Date</span>
                     <DatePicker dayClassName={()=>"calender-day"} name="endDate"
-               className="calender-popper form-control" calendarClassName="calender" withPortal
+               className="calender-popper form-control" calendarClassName="calender"
                showYearDropdown dropdownMode="select"
                selected={this.state.endDate} onChange={this.handleEndDateChange} placeholderText="Start date" />
                </div>
@@ -293,8 +292,8 @@ const options = {
             </div>
        </div>
        <br /><br /><br />
- <Card style={{background:"white", width:"100%"}}>
-    <CardBody style={{padding:"0px"}}>
+ {/*<Card style={{background:"white", width:"100%"}}>
+    <CardBody style={{padding:"0px"}}>*/}
         <div style={{display:"flex",justifyContent:"center"}}>
             <ReactLoading  className={handleLoading} type="bars" color="#290c49" height={'5%'} width={'5%'} />
          </div>        
@@ -336,8 +335,9 @@ const options = {
             <tr ><td>No Registered user during this time</td></tr>
         </tfoot>
 </table>
-    </CardBody>
-</Card><br /><br /><br />
+    {/*</CardBody>
+</Card>*/}
+<br /><br /><br />
 <p className={this.state.users.length === 0?"o-visibility-hidden":"o-visibility-visible"}>Showing pages: {this.state.pageNumber} of {this.lastPageNumber}</p>
 
 <div className="float-right">

@@ -217,54 +217,53 @@ handleInput(e) {
 
 
   render() {
-    const  nextClass = (this.state.pageNumber === this.lastPageNumber || this.state.allDonationsOrPledges.length === 0) ? "page-item medium-font-size disabled":"page-item medium-font-size "
-    const prevClass = (this.state.pageNumber === 1 || this.state.allDonationsOrPledges.length === 0) ? "page-item medium-font-size disabled":"page-item medium-font-size "
+    const  nextClass = (this.state.pageNumber === this.lastPageNumber || this.state.allDonationsOrPledges.length === 0) ? "page-item disabled":"page-item medium-font-size "
+    const prevClass = (this.state.pageNumber === 1 || this.state.allDonationsOrPledges.length === 0) ? "page-item disabled":"page-item medium-font-size "
     const forPledge = (this.state.type === "pledges")?"display-blockade":"dont-display";
     const handleLoading = this.state.showLoading?"display-blockade":"dont-display"
     const showPageDisplayRangeClass = this.state.allDonationsOrPledges.length === 0? "dont-display":"display-blockade"
     const tfootClass = this.state.allDonationsOrPledges.length === 0?"tfoot-content":"dont-display"
     return (
-<div><br />
     <div className="container">
         <div>
-            <span style={{width:"100px", float:"left",marginRight:"10px"}} >
-                <select name="inOrOut" value={this.state.inOrOut} onChange={this.handleInput} className="form-control">
-                    <option value="incoming">INCOMING</option>
-                    <option value="outgoing">OUTGOING</option>
+            <span className="o-donations-select" >
+                <select name="inOrOut" value={this.state.inOrOut} onChange={this.handleInput} className="form-control small">
+                    <option  value="incoming">INCOMING</option>
+                    <option  value="outgoing">OUTGOING</option>
                 </select>
             </span>
-            <span style={{width:"100px", float:"left"}}>
-                <select name="type" value={this.state.type} onChange={this.handleInput} className="form-control">
+            <span className="o-donations-select">
+                <select name="type" value={this.state.type} onChange={this.handleInput} className="form-control small">
                     <option value="donations">DONATIONS</option>
                     <option value="pledges">PLEDGES</option>
                 </select>
             </span>
 
            
-            <div style={{float:"right"}} className="row">
+            <div className="row float-right">
                 <div className="col"><span className="small">Start Date</span>
                     <DatePicker dayClassName={()=>"calender-day"} 
-               className="calender-popper form-control" calendarClassName="calender" withPortal
+               className="calender-popper form-control" calendarClassName="calender"
                showYearDropdown dropdownMode="select" name="startdate"
                selected={this.state.startDate} onChange={this.handleStartDateChange} placeholderText="Start date" />
                </div>
                 <div className="col"><span className="small">End Date</span>
                     <DatePicker dayClassName={()=>"calender-day"} name="endDate"
-               className="calender-popper form-control" calendarClassName="calender" withPortal
+               className="calender-popper form-control" calendarClassName="calender"
                showYearDropdown dropdownMode="select"
                selected={this.state.endDate} onChange={this.handleEndDateChange} placeholderText="Start date" />
                </div>
-               <div className="col"><button onClick={this.findDonationsOrPledges} className="btn bg-theme small">Find</button></div>
+               <div className="col"><button onClick={this.findDonationsOrPledges} className="btn bg-theme">Find</button></div>
             </div>
        </div>
-        <br /><br />
+        <br /><br /><br />
 <Card style={{background:"white", width:"100%"}}>
     <CardBody style={{padding:"0px"}}>
         <div style={{display:"flex",justifyContent:"center"}}>
             <ReactLoading  className={handleLoading} type="bars" color="#290c49" height={'5%'} width={'5%'} />
          </div>
         <table className="table table-hover  table-condensed">
-        <thead>
+        <thead >
                 <tr className="bg-theme color-white">
                 <td>No</td>
                 <td>Name</td>
@@ -280,7 +279,7 @@ handleInput(e) {
              return (
                 
                 <tr onClick={()=>{this.viewDonationOrPledge(U)}}  key={i}>
-                    <td>{i}</td>
+                    <td>{i+1}</td>
                     <td>{U.beneficiaryId.business_name || U.benefactorId.business_name} {U.benefactorId.first_name} &nbsp; {U.benefactorId.last_name}</td>
                     <td>{U.amount}</td>
                     {/*created_at for pledges*/}
@@ -302,22 +301,20 @@ handleInput(e) {
 <div className="float-right">
 <nav aria-label="Page navigation example">
   <ul  className="pagination">
-    <li name="prev" className={prevClass}><a style={{fontSize:"0.9em"}} className="page-link" onClick={this.previous} >Previous</a></li>
+    <li name="prev" className={prevClass}><a className="page-link" onClick={this.previous}>Previous</a></li>
 &nbsp;&nbsp;
      <li  className="page-item p-1 bg-theme color-white">
-        <a style={{color:"white"}} className="p-2 medium-font-size color-white">
+        <a style={{color:"white"}} className="p-2 color-white">
           {this.state.pageNumber}
         </a>
      </li>
 &nbsp;&nbsp;
-    <li name="next" onClick={this.next} className={nextClass}><a style={{fontSize:"0.9em"}}  className="page-link" >Next</a></li>
+    <li name="next" onClick={this.next} className={nextClass}><a className="page-link" >Next</a></li>
   </ul>
 </nav>
 </div>
 </div>
-</div>
-    )
-  }
+    )}
 
 }
 

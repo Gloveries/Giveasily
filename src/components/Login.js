@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Input, Button, Fa, Card, CardBody, ModalFooter } from 'mdbreact';
+import { Container, Row, Col, Input, Button, Fa, Card, CardBody, ModalFooter, ToastContainer, toast } from 'mdbreact';
 import {NavLink} from 'react-router-dom'
 import axios from 'axios'
 import {getUrl} from '../data/urlController';
@@ -34,7 +34,31 @@ addUserToRedux({type,payload}){
     this.props.history.push('/')
 
 }
-    loginUser(e) {
+
+    notify(type,message){
+  return () => {
+    switch (type) {
+      case 'info':
+        toast.info(message, {
+          autoClose: 10000
+        });
+        break;
+      case 'success':
+        toast.success(message, {
+          position: "top-right",
+        });
+        break;
+      case 'warning':
+        toast.warn(message);
+        break;
+      case 'error':
+        toast.error(message);
+        break;
+    }
+  };
+};
+
+loginUser(e) {
         e.preventDefault();
         const that = this;
         const email = e.target.email.value;
@@ -52,13 +76,28 @@ addUserToRedux({type,payload}){
                 USER.setLocalStorageUserData(data)
                 console.log(payload)
                 that.addUserToRedux({type,payload})
+                let nextView = (data.completed_registeration)? '/dashboard':'/registeration/coporate';
+                that.props.history.push(nextView);
+             
+
             }
             
             console.log(response.data)
 
             })
-            .catch(function(err) {
-                console.log(err)
+            .catch(err => {
+                console.log(err.response);
+                let response = err.response;
+                if(response.status === 401) {
+                    
+                    const statusText = response.statusText;
+                    const errBody = response.data.err.message;
+                    const message = `${statusText}: ${errBody} `
+                    this.notify('error',message)()
+                }
+                for (let i in err) {
+                    console.log(i)
+                }
             })
 
     }
@@ -95,8 +134,17 @@ addUserToRedux({type,payload}){
                   <p className="font-small grey-text d-flex justify-content-end">Not a member? <NavLink to="/register" className="blue-text ml-1"> Sign Up</NavLink></p>
                 </ModalFooter>
               </Card>
-              {/*<Button onClick={this.handleAdd}>store user </Button>*/}
-                {/*<button ><NavLink to="/registeration/coporate">go</NavLink></button>*/}
+            <React.Fragment>
+        {/*<button className='btn btn-info' onClick={this.notify('info')}>Info</button>
+        <button className='btn btn-success' onClick={this.notify('success')}>Success</button>
+        <button className='btn btn-warning' onClick={this.notify('warning')}>Warning</button>
+        <button className='btn btn-danger' onClick={this.notify('error')}>Error</button>*/}
+        <ToastContainer
+          hideProgressBar={true}
+          newestOnTop={true}
+          autoClose={5000}
+        />
+      </React.Fragment>
       </div>
         )
     }

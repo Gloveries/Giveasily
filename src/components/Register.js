@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom'
+import {NavLink, Redirect} from 'react-router-dom'
 import { Container, Row, Col, Input,InputNumeric, Button, Fa, Card, CardBody, ToastContainer, toast} from 'mdbreact';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -34,9 +34,17 @@ class Register extends Component {
 
     }
 
+    // componentDidMount(){
+    //   setTimeout(()=>{
+    //     console.log("fire")
+    //     this.notify('error','I could not log you in')()
+    //   },5000)
+    // }
+
+
+
 
   handleChange = event => {
-      console.log(event.target.value)
     this.setState({ category: event.target.value });
     this.category = event.target.value
   };
@@ -72,9 +80,11 @@ class Register extends Component {
 
                  if(data.title === 'success') {
                      const type = 'addUser';
-                     const payload = data;
-                     that.addUserToRedux({type,payload})
-                     that.props.history.push('/dashboard')
+                     
+                     that.addUserToRedux({type,data});
+
+                     that.props.history.push('/');
+
                 }
             }
 
@@ -84,24 +94,24 @@ class Register extends Component {
         })
   }
 
-    notify(type){
+    notify(type,message){
   return () => {
     switch (type) {
       case 'info':
-        toast.info('Info message', {
-          autoClose: 3000
+        toast.info(message, {
+          autoClose: 10000
         });
         break;
       case 'success':
-        toast.success('Success message', {
+        toast.success(message, {
           position: "top-right",
         });
         break;
       case 'warning':
-        toast.warn('Warning message');
+        toast.warn(message);
         break;
       case 'error':
-        toast.error('Error message');
+        toast.error(message);
         break;
     }
   };
@@ -135,7 +145,7 @@ render() {
                         style={{width:"100%"}}
                         icon="envelope"
                     >
-                        <MenuItem value="personal">Personal</MenuItem>
+                        <MenuItem  value="personal">Personal</MenuItem>
                         <MenuItem value="coporate">Coporate</MenuItem>
                     </Select>
                     <label>Personal or Coporate</label>
@@ -144,20 +154,21 @@ render() {
                   <Button className="o-sidebar-header" type="submit" gradient="blue" className="btn-block z-depth-1a o-buttons">Register</Button>
                 </div>
                 </form>
+                <button onClick={this.notify('info')}>click me</button>
               </CardBody>
             </Card>
       {/*</Container>*/}
-            {/*<React.Fragment>
-        <button className='btn btn-info' onClick={this.notify('info')}>Info</button>
+            <React.Fragment>
+        {/*<button className='btn btn-info' onClick={this.notify('info')}>Info</button>
         <button className='btn btn-success' onClick={this.notify('success')}>Success</button>
         <button className='btn btn-warning' onClick={this.notify('warning')}>Warning</button>
-        <button className='btn btn-danger' onClick={this.notify('error')}>Error</button>
+        <button className='btn btn-danger' onClick={this.notify('error')}>Error</button>*/}
         <ToastContainer
           hideProgressBar={true}
           newestOnTop={true}
           autoClose={5000}
         />
-      </React.Fragment>*/}
+      </React.Fragment>
         </div>
     )
 }

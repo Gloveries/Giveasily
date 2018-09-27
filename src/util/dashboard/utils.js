@@ -27,13 +27,19 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button'
 import DatePicker from 'react-datepicker';
 import ExpandMore from '@material-ui/icons/ExpandMore'
+
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import PagesIcon from '@material-ui/icons/Pages';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import logoIcon from '../../logo/logo.png'
+
 import 'react-datepicker/dist/react-datepicker.css';
 
 export const TopCard =({anchorEl,purpose,handleClose,handleClick,handleTopCardClick,display_texts,dropdown_text,result})=>{
  const value = result?result:"Loading..."
  return (
-<div className="card">
-  <div className="card-body">
+<div className="card m-0">
+  <div className="card-body m-0">
     <h6  className="card-title">
         <span>
             <span className="theme-color" onClick={handleClick}> {dropdown_text}<ExpandMore className="float-right" /></span>
@@ -206,3 +212,60 @@ export const ChevronSelect =(props)=>{
 
     )
 }
+
+export const SideBarMenu = ()=>{
+    return (
+    <div className="pl-2" >
+        <div><br />
+            <NavLink className="color-white" to='/show' >
+                <img src={logoIcon} alt="" width="200" />
+            </NavLink><br />
+            <p className="pl-4">ID 113350</p>
+            <br />
+            <div>
+                <div>
+                    <span className="color-blue-variation-1  o-sidebar-header">PAYMENTS</span>
+                    <ul  className="o-nav-ul p-0">
+                        <NavLink className="color-white" to='/'> <li className="cursor-pointer">
+                            <CreditCardIcon style={{width:"9%", height:"9%"}} />
+                            <span className="small"> Transactions</span>
+                        </li>
+                        </NavLink>         
+                        <li    className="color-white cursor-pointer o-letter-spacing">
+                            <NavLink className="color-white" to='/pages'>
+                                <PagesIcon style={{width:"9%", height:"9%"}} />
+                                <span className="small"> Pages</span>
+                            </NavLink>
+                        </li>
+                        
+                    </ul>
+                </div>
+                {/*end*/}
+                <div>
+                    <span className="color-blue-variation-1  o-sidebar-header">TOOLS</span>
+                    <ul className="o-nav-ul p-0">
+                        <li className="color-white cursor-pointer o-letter-spacing">
+                            <NavLink className="color-white" to='/donations'>
+                                <BusinessCenterIcon style={{width:"9%", height:"9%"}} />
+                                <span className="small"> Reconcilation</span>
+                            </NavLink> 
+                        </li>                           
+                    </ul>
+                </div>  
+                <div>
+                    <span className="color-blue-variation-1 o-sidebar-header">GLOBAL ADMIN</span>
+                    <ul className="o-nav-ul p-0">
+                        <li  to='/users'  className="cursor-pointer o-letter-spacing">
+                            <NavLink className="color-white" to='/users'>
+                                <PersonIcon style={{width:"8%", height:"8%"}} />
+                                <span className="small"> Users</span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>           
+            </div>
+        </div>
+    </div>
+)
+}
+
