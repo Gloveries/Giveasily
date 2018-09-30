@@ -30,8 +30,8 @@ router.route('/')
                 var donationData;
                 const platform = (metadata.custom_fields[0]).platform//we need this to check if the user is donating from their dashboard or if the user is donating from another means where we cant track their metadata e.g if they are donating via a form.
                 
-                const {reference,amount,channel, currency, created_at, paid_at, ip_address} = data;
-
+                let {reference,amount,channel, currency, created_at, paid_at, ip_address} = data;
+                amount = Number(amount) / 100
                 const {referrer} = metadata;
                 const {bank,brand} = data.authorization;
                 //assign values for created_at field with the model key paystack_created_at soa s not to be confused with 

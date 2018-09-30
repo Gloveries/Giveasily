@@ -58,25 +58,9 @@ var UserSchema = new Schema({
 
     email: String,                      //this is required
 
-    plan: {
-        type: String,                    //this is required
-        enum: ['basic', 'premium']
-    },
-    business_name:{
-        type:String,
+    type_of_organisation:{
+        type:String,                    //religious_body,ngo,alumni,others
         default:""
-    },
-    ngo:{
-        type:Boolean,
-        default:true
-    },
-    abbreviated_name:{
-        type:String,
-        default:""
-    },
-    church:{
-        type:Boolean,
-        default:true
     },
     coporate_address:{
         type:String,
@@ -135,6 +119,11 @@ var UserSchema = new Schema({
     address: {
         type: String
     },
+    subaccount:{
+        type:ObjectId,
+        ref:'Subaccounts'
+    }
+    ,
     social_platforms: [socialMediaSchema],
     website_url: {
         type: String,

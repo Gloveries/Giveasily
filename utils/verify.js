@@ -1,6 +1,5 @@
 var User = require('../resources/users/users.model');
 var jwt = require('jsonwebtoken');//used to create, sign, and verify token
-
 var config = require('../config.js');
 
 exports.getToken = function(user,expiresIn) {
@@ -20,10 +19,10 @@ exports.verifyOrdinaryUser = function(req,res,next) {
             if(err) {
                 var err = new Error('you are not authenticated!');
                 err.status = 401;
-                console.log(err);
                 return next(err);
             } else {
-                //if everything is good, save to request for use in other routes
+
+                //if (!decoded.completed_registeration) return next(new Error('Please complete your registeration'))
                 req.decoded = decoded;
                 next();
             }

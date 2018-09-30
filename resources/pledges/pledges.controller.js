@@ -1,6 +1,6 @@
 const pledgesModel = require('./pledges.model.js');
 const generateController = require('../../utils/generateController');
-
+const handleVerificationError = require('../../utils/handleVerificationError');
 module.exports = generateController(pledgesModel,{
     createOne: function (req, res, next) {
       
@@ -8,18 +8,20 @@ module.exports = generateController(pledgesModel,{
         
         const body = {status,amount,platform,beneficiaryId,benefactorId,purpose,description,date_to_redeem_pledge};
         
-        if(!benefactorId || platform === 'form') delete body.benefactorId;
+        if(!benefactorId || platform === 'form') delete body.benefactorId; //if pledges are made from donation forms
         
 
-        const errorMsg1 = JSON.stringify({title:'failed',message:'There was an error submitting you pledge, pls contact customer service'});
-        const errorMsg2 = JSON.stringify({title:'failed',message:'Please select a date in the near future'});
+        const errorMsg1 = 'There was an error submitting your pledge, pls contact customer service';
+        const errorMsg2 = 'Please select a date in the near future'
   
-        if(!status || status !== 'unredeemed') return next(new Error(errorMsg1))
+        if(!status || status !== 'unredeemed') return handleVerificationError(res,500,errorMsg1)
         
-        console.log(body)
+        console.log("abd")
         const redeemDateSinceEpoch = +new Date(date_to_redeem_pledge);
         const currentDateSinceEpoch = +new Date();
-        if(redeemDateSinceEpoch < currentDateSinceEpoch) return res.json(errorMsg2)
+        
+        if(redeemDateSinceEpoch < currentDateSinceEpoch) return handleVerificationError(res,500,errorMsg2)
+
         console.log(+new Date('2018-09-01') > +new Date())
         
         pledgesModel.create(body, function (err, doc) {

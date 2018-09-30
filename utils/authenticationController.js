@@ -1,13 +1,21 @@
 const passport = require('passport')
 const Verify = require('./verify')
 const sendMail = require('./mailer/mailer')
-const cron = require('node-cron')
+const cron = require('node-cron');
+const handleVerificationError = require('./handleVerificationError');
+
 
 
 module.exports = function (User) {
     return {
         login: function (req, res, next) {
             passport.authenticate('local', function (err, user, info) {
+//               var err = new Error();
+//                err.status = 403;
+//                err.message = "cannot be the first one"
+//                return res.status(300).json({
+//                            err
+//                        })
                 if (err) {
                     return next(err);
                 }
@@ -16,7 +24,7 @@ module.exports = function (User) {
                         err: info
                     });
                 }
-                if(!user.completed_email_verification) return res.json({message:'please verify your email'});
+                if(!user.completed_email_verification) return res.json({title:"fail",message:'Please verify your email'});
                 
                 req.logIn(user, function (err) {
                     if (err) {
@@ -60,23 +68,18 @@ module.exports = function (User) {
                 founder: req.body.founder 
             }),
                 req.body.password, function (err, user) {
-                    if (err) {
-
-                        return next(new Error(err))
-                    }
-                    if (!user) {
-                        console.log("user not saved")
-                        return res.json({
-                            title:"failed",
-                            message: "user not saved" })
-                    }
+                console.log(err)
+                
+                    if (err) return handleVerificationError(res,500,err.message)
+                    
+                    if (!user) return handleVerificationError(res,500," Error while saving to database. pls try again later")
     
                     var theUser = {
                          _id: user._id, 
                         email_verified:user.completed_email_verification,
                     }
-                    var token = Verify.getToken(theUser,86400);
-                   sendMail(user.email,"Please complete registeration",token)
+                    var token = Verify.getToken(theUser,8640000000000); //ENSURE THIS TOKEN DOESNT EXPIRE 
+                    sendMail(user.email,"Please complete registeration",token)
 
 
                     // setTimeout(function(){
