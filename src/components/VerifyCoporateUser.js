@@ -262,8 +262,10 @@ const options = {
 
 }
   render() {
-    const  nextClass = (this.state.pageNumber === this.lastPageNumber||this.state.users.length === 0) ? "page-item disabled":"page-item"
-    const prevClass = (this.state.pageNumber === 1||this.state.users.length === 0) ? "page-item disabled":"page-item";
+    const  nextClass = (this.state.pageNumber === this.lastPageNumber||this.state.users.length === 0) ?
+     "page-item disabled":"page-item"
+    const prevClass = (this.state.pageNumber === 1||this.state.users.length === 0) ?
+     "page-item disabled":"page-item";
     const handleLoading = this.state.showLoading ? "display-blockade":"dont-display"
     return (
 <div className="container">
@@ -299,14 +301,14 @@ const options = {
          </div>        
          <table className="table table-hover  table-condensed">
         <thead>
-                <tr className="bg-theme color-white">
-                <td>No</td>
-                <td>Verified</td>
-                <td>Business Name</td>
-                <td>Plan</td>
-                <td>Email</td>
-                <td>Paid At</td>
-                <td>Action</td>
+                <tr >
+                <td className="page-table-row">No</td>
+                <td className="page-table-row">Verified</td>
+                <td className="page-table-row">Business Name</td>
+                <td className="page-table-row">Plan</td>
+                <td className="page-table-row">Email</td>
+                <td className="page-table-row">Paid At</td>
+                <td className="page-table-row">Action</td>
             </tr>
         </thead>
         <tbody className="animated fadeIn">
@@ -343,10 +345,10 @@ const options = {
 <div className="float-right">
 <nav aria-label="Page navigation example">
   <ul  className="pagination">
-    <li name="prev" className={prevClass}><a className="page-link" onClick={this.previous} >Previous</a></li>
+    <li name="prev" className={prevClass}><a className="page-link" onClick={this.previous}>Previous</a></li>
 &nbsp;&nbsp;
-     <li  className="page-item p-1 bg-theme color-white">
-        <a style={{color:"white"}} className="p-1 color-white">
+     <li  className="page-item bg-theme color-white">
+        <a style={{color:"white"}} className="p-2 color-white">
           {this.state.pageNumber}
         </a>
      </li>

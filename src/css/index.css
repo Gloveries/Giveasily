@@ -77,7 +77,7 @@ color:white
     color:#290c49
 }
 .bg-white {
-    background:"white"
+    background:white
 }
 /* superpose animate.css animations speed*/
 #o-dashboard-notification {
@@ -172,7 +172,12 @@ color:white
 }
 /*Main*/
 
- /*style={{background:"#fbfbfb", borderRadius:"5px",position:"relative"}}*/
+.topCard {
+    background:white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6)
+
+}
+
 .o-notification-list {
 background:#fbfbfb;
 border-radius:5px;
@@ -184,7 +189,7 @@ position:relative;
     width:30px;
     height:30px;
     border-radius:50%;
-    right:-5px;
+    right:-10px;
     top:27px;
     cursor:pointer;
 }
@@ -207,6 +212,8 @@ position:relative;
 .color-grey {
     color:grey
 }
+
+
 
 .color-grey-2 {
     color:#333
@@ -249,8 +256,8 @@ position:absolute
 }*/
 
 #email-confirmation-overlay {
-width:60%;
-height:60%;
+width:40%;
+height:40%;
 }
 
 /* calender class */
@@ -264,10 +271,11 @@ height:60%;
 
 }
 /*      end:       */
-
 .o-buttons {
-    background-image: linear-gradient(to right, #008aec , #015095);
-    border-radius: 20px;
+    background-image: linear-gradient(to right, #008aec , #33b964);
+    border-radius: 30px;
+    width:50%;
+    margin:0 auto;
 }
 
 /*.form-elegant .font-small {
@@ -284,9 +292,14 @@ height:60%;
 
 /* for Register.js*/
  .o-center-card {
-     display:flex;
+     /*display:flex;
      justify-content:center;
-     align-items:center;
+     align-items:center;*/
+
+     width:40%;
+     margin:0 auto;
+     background:white;
+     
  }
 
  .o-prep-card {
@@ -301,11 +314,27 @@ height:60%;
     width:35%;
     margin:0 auto
 }
+/*style={{background:"white", textAlign:"center", textTransform:"uppercase"}}*/
+
+.o-login-text {
+    background:white;
+    text-align: center;
+    text-transform: uppercase;
+}
 /*END LOGIN*/
 /* Coporate form */
 .social-checkbox {
     width:20px;
     height:20px;
+}
+
+.theme-logo-color {
+    color:#394f9e
+}
+
+.o-form-sub {
+    font-size:small;
+    font-weight:500;
 }
 
 .top-form-select {
@@ -320,6 +349,7 @@ height:60%;
 .coporate-form-body {
     width:70%;
     margin: 0 auto;
+    padding:20px;
 }
 
 .width-50-percent {
@@ -332,6 +362,9 @@ height:60%;
 
 .margin-zero-auto {
     margin:0 auto;
+}
+.display-inline {
+    display:inline-block
 }
 
 .font-weight-bold {
@@ -391,6 +424,15 @@ height:60%;
     margin: 0 auto
 }
 
+.no-padding-no-margin {
+    padding:0px;
+    margin:0px;
+}
+.page-table-row {
+    font-size:0.9em;
+    /*font-weight:500;*/
+}
+
 .border-bottom-theme-color {
     border-bottom:1px solid #290c49
 }
@@ -437,11 +479,33 @@ height:60%;
     justify-content: center
 }
 /*End Table Material component*/
+@media only screen and (max-width: 900px) {
+
+#email-confirmation-overlay {
+width:55%;
+}
+
+.o-buttons {
+    width:70%
+}
+
+.coporate-form-body {
+    width:100%;
+    margin: 0 auto;
+    padding:15px;
+}
+
+}
+
 
 @media only screen and (max-width: 600px) {
 
 #email-confirmation-overlay {
 width:100%;
+}
+
+.o-buttons {
+    width:100%
 }
 
 .calender-popper {
@@ -487,5 +551,7 @@ width:100%;
     float:left;
     margin-right:10px
 }
+
+
 
 /*END DONATIONS*/

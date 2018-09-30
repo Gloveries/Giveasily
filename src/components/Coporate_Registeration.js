@@ -5,8 +5,10 @@ import axios from 'axios';
 import ReactLoading from 'react-loading'
 import USER from '../data/userData'
 import {NavLink} from 'react-router-dom'
-import logoIcon from '../logo/logo.png'
+import LogoblueIcon from '../logo/Logoblue.png';
+import { ToastContainer, toast } from 'mdbreact';
 
+// import {bankList} from '../data/bankList'
 
 class CoporateRegisteration extends Component {
    constructor(props) {
@@ -19,6 +21,7 @@ class CoporateRegisteration extends Component {
       bvn:"",
       verifiedBvn:false,
       showLoader:false,
+      bankList:[],
       ngo:false,
       founder:false,
       on_whatsapp:false,
@@ -26,7 +29,8 @@ class CoporateRegisteration extends Component {
       on_twitter:false,
       on_mobile:false,
       on_website:false,
-      church:false
+      church:false,
+      organisation_type:"religious_body"
     }
     console.log("".length)
     this.bvnVerification = undefined;
@@ -34,18 +38,51 @@ class CoporateRegisteration extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.verifyBvn = this.verifyBvn.bind(this);
     this.makeBvnVerificationRequest = this.makeBvnVerificationRequest.bind(this);
-    this.cancelBvnVerificationRequest = this.cancelBvnVerificationRequest.bind(this)
+    this.cancelBvnVerificationRequest = this.cancelBvnVerificationRequest.bind(this);
+    this.getBankList = this.getBankList.bind(this)
+  }
+
+  componentDidMount(){
+      this.getBankList();
+  }
+
+  getBankList() {
+        
+        const url = getUrl('bank');
+
+        const options = {
+        method: 'GET',
+        url: url,
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token':  USER.getLocalStorageUserData().token        
+            }
+        }
+
+        axios(options)
+            .then(response => {
+                const bankList = response.data;
+                this.setState({
+                    bankList
+                })
+            })
+            .catch(function(err){
+                console.log(err)
+            })
   }
 
   handleSelectChange(e){
       this.collectionMethod = e.target.value;
-      const name = e.target.name
+      const name = e.target.name;
+      console.log(name)
+
       if(name === 'collection_method'){
         if(this.collectionMethod === "other_platforms" || this.collectionMethod === "others") {
             this.setState({
                 otherClasses:"animated fadeIn"
                 })
-        } else {
+        } 
+        else {
             if(this.state.otherClasses === "animated fadeIn") {
               this.setState({
                   otherClasses:"dont-display"
@@ -53,12 +90,38 @@ class CoporateRegisteration extends Component {
           }
           
       }
-    }
+    } 
+
 
   }
 
+notify(type,message,duration){
+  return () => {
+    switch (type) {
+      case 'info':
+        toast.info(message, {
+          autoClose: duration||10000
+        });
+        break;
+      case 'success':
+        toast.success(message, {
+          position: "top-right",
+        });
+        break;
+      case 'warning':
+        toast.warn(message);
+        break;
+      case 'error':
+        toast.error(message);
+        break;
+    }
+  };
+};
+
+
   handleFormSubmit(e) {
       e.preventDefault();
+
       const that = this;
       const first_name = this.state.first_name;
       const last_name = this.state.last_name;
@@ -67,7 +130,7 @@ class CoporateRegisteration extends Component {
       const official_phone = e.target.official_phone.value;
       const personal_phone = e.target.personal_phone.value;
       const founder = this.state.founder;
-      const ngo = this.state.ngo;
+      const type_of_organisation = this.state.organisation_type;
       const business_name = e.target.business_name.value;
       const abbreviated_name = e.target.abbreviated_name.value;
       const settlement_bank = e.target.bank.value;
@@ -93,11 +156,10 @@ class CoporateRegisteration extends Component {
       const body = {
                     first_name,last_name,official_phone,personal_phone,founder,bvn,account_number,
                     business_name,abbreviated_name,other_methods,date_of_birth,church,
-                    coporate_address,other_platforms,settlement_bank,ngo,social_platforms
+                    coporate_address,other_platforms,settlement_bank,type_of_organisation,social_platforms
                    }
-      console.log(body);
-      const url = getUrl('coporate_registeration');
-        var options = {
+        const url = getUrl('coporate_registeration');
+        const options = {
         method: 'POST',
         url: url,
         data: body,
@@ -105,19 +167,40 @@ class CoporateRegisteration extends Component {
             'Content-Type': 'application/json',
             'x-access-token':  USER.getLocalStorageUserData().token,        }
     }
+
+    console.log(body)
       axios(options)
-        .then(function(response){
+        .then(response => {
             if(response.data.title === 'success') {
                 // that.history.push('/')  
-                alert('success')
+                const message = `Thank you, It will take 24 - 48hrs to verify yor details. 
+                You will recieve a mail from us afterwards`
+                this.notify('success',message,2000000)();
             }      
         })
-        .catch(function(err){
-            console.log(err)
+        .catch(err => {
+                            const status = err.response.status;
+                console.log(err.response);
+                                console.log(status);
+                if(status) {
+                    switch(status){
+                        case 401:
+                        this.notify('error','You are not authenticated. Login to continue')();
+                        break;
+
+                        case 403:
+                        this.notify('error','No auth token provided, Login to continue')();
+                        break;
+
+                        default:
+                        this.notify('error',"Something went wrong")();
+                    }
+                }
         })
         
     
   }
+
 
   cancelBvnVerificationRequest(){
       console.log('cancelled request')
@@ -127,14 +210,16 @@ class CoporateRegisteration extends Component {
 
   }
   makeBvnVerificationRequest(Response,bvn){
-    const that = this;
-    if(!this.state.showLoader) this.setState({showLoader:true})
+    if(!this.state.showLoader) this.setState({showLoader:true});
 
-    const url = getUrl('verifybvn') +"/"+bvn;//use this in production
-          console.log('making request to '+url)
+    const that = this;
+
+
 
     this.bvnVerification = setTimeout(function(){
-        const url= getUrl('users')
+        //     const url = getUrl('bvn') +"/"+bvn;//use this in production
+        //   console.log('making request to '+url)
+                    const url = getUrl('users')
         const options = {
             method: 'GET',
             url: url,
@@ -144,24 +229,44 @@ class CoporateRegisteration extends Component {
             }
         }
         axios(options)
-            .then(function(response){
+            .then(response => {
+                console.log(response)
                 if(response.status === 200) {
                     //if(response.data.message === "BVN resolved") { //uncomment this in production
                         const data = Response.data;
                         const {first_name,last_name, personal_phone,formatted_dob} = data;
                         const verifiedBvn = true;const showLoader = false
-                     that.setState({
-                        first_name,last_name, personal_phone,verifiedBvn,formatted_dob,showLoader
-                     })
+                        that.setState({
+                            first_name,last_name, personal_phone,verifiedBvn,formatted_dob,showLoader
+                        })
                     //}
              }
 
             })
-        .catch(function(err){
-            console.log(err)
+            .catch(err => {
+                const status = err.response.status;
+                console.log(err.response);
+                                console.log(status);
+                if(status) {
+                    switch(status){
+                        case 401:
+                        that.notify('error','You are not authenticated. Login to continue')();
+                        break;
+
+                        case 403:
+                        that.notify('error','No auth token provided, Login to continue')();
+                        break;
+
+                        default:
+                        that.notify('error',"Something went wrong")();
+                    }
+                }
+
+                // console.log(err["response"])
+
             that.setState({showLoader:false})
         })
-      },3000)
+      },1000)
   }
 
   verifyBvn(e){
@@ -200,31 +305,43 @@ class CoporateRegisteration extends Component {
   handleCheckBox =(e)=>{
     const value = e.target.checked;
     const name = e.target.name;
+
     this.setState({
         [name]:value
     })
+  }
+
+handleRadioButton = (e)=>{
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({
+        [name]:value
+    })
+
   }
 
   render() {
       const correctClass = (this.state.verifiedBvn)?"col animated fadeIn":"dont-display"
       const dateClass = (!this.state.verifiedBvn)?"dont-display":"animated fadeIn";
     return(
-    <div className="p-4 theme-color coporate-form">
-        <div className="text-center ">
-            <NavLink  to="https://giveasily.ng/" className="logo">
-                <img src= {logoIcon} height="150" />
-            </NavLink>
+    <div  className="p-4 theme-color coporate-form">
+
+              <div className="myimage align-center">
+          
+          <NavLink to="/"> <img src={LogoblueIcon} width="30%" /></NavLink>
+        
         </div>
-    <Card className="coporate-form-body" >
-    <CardBody>
+    <div  className="topCard coporate-form-body " >
+    <div>
         <div className="container">
-            <h4 className="align-center">THANK YOU FOR VERIFYING YOUR E-MAIL</h4>
-            <p className="align-center">You are almost done! please let us get to know you and your coporate entity</p>
-            <h5 className="color-theme">About You</h5>
+            <h4 className="align-center theme-logo-color">THANK YOU FOR VERIFYING YOUR E-MAIL</h4>
+            <p className="align-center o-form-sub theme-logo-color">You are almost done! please let us get to know you and your coporate entity</p>
             <form onSubmit={this.handleFormSubmit}>
+                <div className="p-3" style={{background:"#f5f5f5"}}>
+            <h5 className="theme-logo-color">About you</h5>
                 <div className="row">
-                    <div className="col-10">         
-                        <input onChange={this.verifyBvn} value={this.state.bvn} disabled={this.state.verifiedBvn} className="form-control" name="bvn" placeholder="BVN number" type="text" />
+                    <div className="col-sm-10">         
+                        <input pattern="[0-9]*" onChange={this.verifyBvn} value={this.state.bvn} disabled={this.state.verifiedBvn} className="form-control" name="bvn" placeholder="bvn number" type="text" />
                     </div>
                     <span style={{fontSize:"20px"}} className={correctClass}><i className="lni-check-mark-circle color-green"></i></span>
             
@@ -233,76 +350,124 @@ class CoporateRegisteration extends Component {
                 </div><br />
             <div className="row">
                 <div className={correctClass}>
-                    <input defaultValue={this.state.first_name} disabled={this.state.verifiedBvn} name="first_name" placeholder="Firstname" className="form-control"  type="text" />
+                    <input defaultValue={this.state.first_name} disabled={this.state.verifiedBvn} name="first_name" placeholder="firstname" className="form-control"  type="text" />
                 </div>
                 <div className={correctClass}>
-                    <input defaultValue={this.state.last_name} disabled={this.state.verifiedBvn} id="lastname" name="last_name" placeholder="Lastname" className="form-control"  type="text" />
+                    <input defaultValue={this.state.last_name} disabled={this.state.verifiedBvn} id="lastname" name="last_name" placeholder="lastname" className="form-control"  type="text" />
                 </div>
             </div>
             <div className={dateClass}>
-                <label className="color-grey">Date of Birth</label>
+                <label className="o-form-sub theme-logo-color">Date of Birth</label>
                 <input defaultValue={this.state.formatted_dob} disabled={this.state.verifiedBvn} type="date" className="form-control" />
             </div><br />
              <div className="row">
-                <div className="col">
-                    <input id="email" name="official_phone" placeholder="Official Phone" className="form-control" type="text" />
+                <div className="col-sm">
+                    <input pattern="[0-9]*" id="email" name="official_phone" placeholder="official Phone" className="form-control" type="text" />
                 </div>
-                <div className="col">
-                    <input id="personal_phone" name="personal_phone" placeholder="Personal Phone" className="form-control" type="text" />
+                <div className="col-sm">
+                    <input pattern="[0-9]*" id="personal_phone" name="personal_phone" placeholder="personal Phone" className="form-control" type="text" />
                 </div>
-             </div><br />
+             </div>
+             <br /><br />
             <div className="row">
-                <div className="col">
-                    <p className="color-grey-2">Is your organisations a church?</p>
+                <div className="col-sm">
+                    <p className="o-form-sub theme-logo-color">Are you the founder or presiding pastor of your organisation?</p>
                 </div>
-                <div className="col">
+                <div className="col-sm">
                     <div className="row">
-                        <input checked={this.state.church} onChange={this.handleCheckBox} name="church" className="col-1 social-checkbox"  type="checkbox" /> 
-                        <span className="col-11 color-grey-2">Yes it is</span>
+                        <input  checked={this.state.founder} onChange={this.handleCheckBox} name="founder" className="col-1 social-checkbox"  type="checkbox" /> 
+                        <span className="col-11 o-form-sub theme-logo-color">Yes i am</span>
                     </div>
                 </div>
             </div>
+
+
+             </div>
+             <br />
+             <div className="p-3" style={{background:"#f5f5f5"}}>
+            <h5 className="theme-logo-color">About your association NGO,NPO or religious organisation</h5>
+            <p className="o-form-sub theme-logo-color">Business Name</p>
             <div className="row">
-                <div className="col">
-                    <p className="color-grey-2">Are you a founder or presiding pastor of a church or NGO?</p>
+                <div className=" col-sm">
+                    <input name="business_name" placeholder="name of coporate entity" className="form-control"  type="text" /> 
                 </div>
-                <div className="col">
-                    <div className="row">
-                        <input checked={this.state.founder} onChange={this.handleCheckBox} name="founder" className="col-1 social-checkbox"  type="checkbox" /> 
-                        <span className="col-11 color-grey-2">Yes i am</span>
-                    </div>
-                </div>
-            </div>
-            <h5 className="color-theme">About your coporate entity</h5>
-            <div className="row">
-                <div className=" col-sm-6">
-                    <input name="business_name" placeholder="Name of coporate Entity" className="form-control"  type="text" /> 
-                </div>
-                <div className=" col-sm-3">
-                    <input name="abbreviated_name" placeholder="Abbreviated name if any" className="form-control"  type="text" /> 
-                </div>
-                <div className=" col-sm-3">
-                    <input checked={this.state.ngo} onChange={this.handleCheckBox} name="ngo" className="social-checkbox"  type="checkbox" /> 
-                    <span className="color-grey-2 col">Select this if you have a registered NGO in nigeria CAC/IT/NO amongst others.</span>
+                <div className=" col-sm">
+                    <input name="abbreviated_name" placeholder="abbreviated name if any" className="form-control"  type="text" /> 
                 </div>
             </div><br />
-            <div className="row">
-                <div className="col">
-                    <input id="bank" name="bank" placeholder="Bank Name" className="form-control"  type="text" />
+            <p className="o-form-sub theme-logo-color"> Choose your appropriate oranisation </p>
+            <div className="row p-3">
+                <div className="col-sm">
+                    <div className="row">
+                        <input value="religious_body" name="organisation_type" checked={this.state.organisation_type === "religious_body"?true:false} onChange={this.handleRadioButton} className="col-1 social-checkbox"  type="radio" /> 
+                        <span className="col-11 o-form-sub theme-logo-color">Registered religious organisation in Nigeria<br />
+                            <small className="color-grey-2">Choose this option if you have a registered church or mosque</small>
+                        </span>
+                        
+                    </div>
                 </div>
-                <div className="col">
-                    <input  id="account_no" name="account_no" placeholder="Account No" className="form-control"  type="text" />
-                    <small className="color-grey">Please make sure that you double check your account details. giveasily will not be held responsible for paying to 
+                <div className="col-sm">
+                    <div className="row">
+                        <input value="ngo" name="organisation_type" checked={this.state.organisation_type === "ngo"?true:false} onChange={this.handleRadioButton} className="col-1 social-checkbox"  type="radio" /> 
+                        <span className="col-11 o-form-sub theme-logo-color">Registered NGO's &amp; NPO's in nigeria<br />
+                            <small className="color-grey-2">Select this if you have a registered NGO in nigeria CAC/IT/NO amongst others</small>
+                        </span>
+                        
+                    </div>
+                </div>
+                <div className="col-sm">
+                    <div className="row">
+                        <input value="alumni" name="organisation_type" checked={this.state.organisation_type === "alumni"?true:false}  onChange={this.handleRadioButton} className="col-1 social-checkbox"  type="radio" /> 
+                        <span className="col-11 o-form-sub theme-logo-color">Old students / Alumni associations<br />
+                            <small className="color-grey-2">Choose this option if you have a registered old school or alumni association</small>
+                        </span>
+                        
+                    </div>
+                </div>
+                <div className="col-sm">
+                    <div className="row">
+                        <input value="others" name="organisation_type" checked={this.state.organisation_type === "others"?true:false} onChange={this.handleRadioButton} className="col-1 social-checkbox"  type="radio" /> 
+                        <span className="col-11 o-form-sub theme-logo-color">Old kinds of Organisation<br />
+                            <small className="color-grey-2">Choose this option if none of the other option fit your organisation</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div  className="row">
+                <div className="col-sm-6">
+                    <p className="o-form-sub theme-logo-color">Enter your detailed cooporate headquarters in Nigeria</p>
+                </div>
+                <div className="col-sm-6">
+                    <textarea required name="coporate_address" rows="7" cols="20" placeholder="coporate Address" className="form-control"></textarea>
+                </div>
+        </div><br />
+            </div>           
+            <br />
+            <div className="p-3" style={{background:"#f5f5f5"}}>
+
+
+            <p className="o-form-sub theme-logo-color">Bank details</p>
+            <div className="row">
+                <div className="col-sm">
+                <select name="bank" value={this.state.settlement_bank} className="form-control">
+                    {this.state.bankList.map((B,i)=>{
+                        return <option  key={i} value={B.name}>{B.name}</option>
+                    })}
+                </select>
+            </div>
+                <div className="col-sm">
+                    <input pattern="[0-9]*"  id="account_no" name="account_no" placeholder="account number" className="form-control"  type="text" />
+                    <small className="color-grey-2">Please make sure that you double check your account details. giveasily will not be held responsible for paying to 
             any inaccurate account details you specify</small>
                 </div>
             </div><br />    
 
             <div className="row">
-                <div className="col">
-                    <p className="color-grey-2">What method(s) do you currently use for collecting donations?</p>
+                <div className="col-sm">
+                    <p className="o-form-sub theme-logo-color">What method(s) do you currently use for collecting donations?</p>
                 </div>
-            <div className="col">
-                <select className="form-control" onChange={this.handleSelectChange} name="collection_method">
+            <div className="col-sm">
+                <select name="collection_method" className="form-control" onChange={this.handleSelectChange}>
                     <option value="">--choose--</option>
                     <option value="bank">Transfer to bank account</option>
                     <option value="cash">Collection in cash</option>
@@ -312,7 +477,7 @@ class CoporateRegisteration extends Component {
             </div>
         </div><br />
         <div className={this.state.otherClasses}>
-            <p>Please specify the platform</p>
+            <p className="o-form-sub theme-logo-color">Please specify the platform</p>
             <textarea name="other_methods" rows="5" cols="20" className="form-control"></textarea>
         </div><br />
         {/*<div >
@@ -340,54 +505,60 @@ class CoporateRegisteration extends Component {
             </div>
     </div>
     <br />*/}
-    <div className="row">
-        <div className="col-sm-6">
-            <p>Enter your detailed cooporate headquarters in Nigeria</p>
-        </div>
-        <div className="col-sm-6">
-            <textarea name="coporate_address" rows="7" cols="20" placeholder="coporate Address" className="form-control"></textarea>
-        </div>
-    </div><br />
-    <p>Which of the following platforms are you presently active on?</p>
-    <div className="row">
-        <div className="col-sm-2">
+
+    <p className="o-form-sub theme-logo-color">Which of the following platforms are you presently active on?</p>
+    <div className="row p-0">
+        <div className="col-sm">
             <div className="row">
-                <input className="col social-checkbox" checked={this.state.on_website} onChange={this.handleCheckBox} name="on_website" type="checkbox" />
-                <span className="col"> Website</span>
+                <input className="col-sm social-checkbox" checked={this.state.on_website} onChange={this.handleCheckBox} name="on_website" type="checkbox" />
+                <span className="col-sm o-form-sub theme-logo-color"> Website</span>
             </div>
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm">
             <div className="row">
-                <input className="col social-checkbox" checked={this.state.on_mobile} onChange={this.handleCheckBox} name="on_mobile" type="checkbox" />
-                <span className="col"> Mobile App</span>
+                <input className="col-sm social-checkbox" checked={this.state.on_mobile} onChange={this.handleCheckBox} name="on_mobile" type="checkbox" />
+                <span className="col-sm o-form-sub theme-logo-color"> Mobile App</span>
             </div>
         </div>
-        <div className="col-sm-3">
+        <div className="col-sm">
             <div className="row">
-                <input className="col social-checkbox" checked={this.state.on_facebook} onChange={this.handleCheckBox} name="on_facebook" type="checkbox" />
-                <span className="col"> Facebook Page</span>
+                <input className="col-sm social-checkbox" checked={this.state.on_facebook} onChange={this.handleCheckBox} name="on_facebook" type="checkbox" />
+                <span className="col-sm o-form-sub theme-logo-color"> Facebook Page</span>
             </div>
         </div>
-        <div className="col-sm-3">
+        <div className="col-sm">
             <div className="row">
-                <input className="col social-checkbox" checked={this.state.on_twitter} onChange={this.handleCheckBox} name="on_twitter"  type="checkbox" />
-                <span className="col"> Twitter Account</span>
+                <input className="col-sm social-checkbox" checked={this.state.on_twitter} onChange={this.handleCheckBox} name="on_twitter"  type="checkbox" />
+                <span className="col-sm o-form-sub theme-logo-color"> Twitter Account</span>
             </div>
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm">
             <div className="row">
-                <input className="col social-checkbox" checked={this.state.on_whatsapp} onChange={this.handleCheckBox} name="on_whatsapp" type="checkbox" />
-                <span className="col"> WhatsApp</span>
+                <input className="col-sm social-checkbox" checked={this.state.on_whatsapp} onChange={this.handleCheckBox} name="on_whatsapp" type="checkbox" />
+                <span className="col-sm o-form-sub theme-logo-color"> WhatsApp</span>
             </div>
         </div>
-    </div><br />
-    <div className="text-center mb-3">
-        <Button type="submit" className="btn-block z-depth-1a o-buttons">Submit</Button>
     </div>
+    </div>
+
+
+    <div className="text-center my-3">
+        {/*<Button type="submit" className="btn z-depth-1a">Submit</Button>*/}
+        <Button style={{margin:"0 auto"}} type="submit" gradient="blue" className="btn-block  o-buttons">Submit</Button>
+    </div>
+        <React.Fragment>
+        <ToastContainer
+          hideProgressBar={true}
+          newestOnTop={true}
+          autoClose={5000}
+        />
+      </React.Fragment>
    </form>
 
   </div>
-  </CardBody></Card>
+  </div>
+  </div>
+
 </div>
     )
   }

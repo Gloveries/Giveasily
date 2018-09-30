@@ -1,7 +1,7 @@
-const BASEURL = "http://localhost:3000"
-const loginUrl = `${BASEURL}/api/v1/users/login`;
+const BASEURL = ""
+const login = `${BASEURL}/api/v1/users/login`;
 const registerUrl = `${BASEURL}/api/v1/users/register`
-const verifyBvn = `${BASEURL}/api/v1/verify_bvn`;
+const bvn = `${BASEURL}/api/v1/bvn`;
 const usersUrl = `${BASEURL}/api/v1/users`;
 const complete_coporate_user_reg =`${BASEURL}/api/v1/users/coporate/complete_reg`;
 const pledge = `${BASEURL}/api/v1/pledges`;
@@ -19,7 +19,7 @@ const get_donations_amount = `${BASEURL}/api/v1/starter/donations_amount`;
 const starter = `${BASEURL}/api/v1/starter`;
 const query_users = `${BASEURL}/api/v1/users/user_query`;
 const pages = `${BASEURL}/api/v1/pages`
-
+const bank = `${BASEURL}/api/v1/bank`
 
 
 
@@ -32,10 +32,10 @@ export const getUrl = function(purpose){
         return registerUrl;
 
         case 'login':
-        return loginUrl;
+        return login;
 
-        case 'verifybvn':
-        return verifyBvn;
+        case 'bvn':
+        return bvn;
 
         case 'users':
         return usersUrl;
@@ -87,6 +87,9 @@ export const getUrl = function(purpose){
 
         case 'pages':
         return pages;
+
+        case 'bank':
+        return bank;
 
     }
 }

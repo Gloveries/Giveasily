@@ -27,22 +27,25 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button'
 import DatePicker from 'react-datepicker';
 import ExpandMore from '@material-ui/icons/ExpandMore'
-
+import {Card, CardBody, ToastContainer, toast } from 'mdbreact';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import PagesIcon from '@material-ui/icons/Pages';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import logoIcon from '../../logo/logo.png'
-
+import LogoIcon1 from '../../logo/Logo1.png'
+import logoblueIcon from '../../logo/Logoblue.png'
+import mailIcon from '../../logo/me.png'
 import 'react-datepicker/dist/react-datepicker.css';
 
 export const TopCard =({anchorEl,purpose,handleClose,handleClick,handleTopCardClick,display_texts,dropdown_text,result})=>{
  const value = result?result:"Loading..."
  return (
-<div className="card m-0">
-  <div className="card-body m-0">
+<div  className="topCard p-2">
+  <div  className="p-2">
+
     <h6  className="card-title">
         <span>
-            <span className="theme-color" onClick={handleClick}> {dropdown_text}<ExpandMore className="float-right" /></span>
+            <span className="theme-color" onClick={handleClick}><b> {dropdown_text} <ExpandMore className="float-right" /></b></span>
                 <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
                     {
                          display_texts.map((T,i)=>
@@ -52,46 +55,47 @@ export const TopCard =({anchorEl,purpose,handleClose,handleClick,handleTopCardCl
                 </Menu>
             </span>            
     </h6>
-        <h1  className="card-text"><PersonIcon /> | <b>{value}</b></h1><br />
+        <h6  className="card-text"><b className="color-grey"><PersonIcon /> | {value}</b></h6><br />
 
-    <small className="card-subtitle mb-2 theme-color small"> {purpose}</small>
-
+    <small className="card-subtitle mb-2 theme-color"> {purpose}</small>
   </div>
   {/*<ReactLoading type="spokes" color="#888" height={'20%'} width={'20%'} />*/}
 </div>
+
 )}
 
 export const EmailConfirmationOverlay = ({blockDashboard, email})=>{
 
-const classChoice = (!blockDashboard)?"block-dashboard":"dont-display"
+const classChoice = blockDashboard? "block-dashboard":"dont-display"
+console.log(classChoice)
   return (
-    <div className={classChoice}>
+    <div  className={classChoice}>
     <div id="email-confirmation-overlay" className="p-3" >
      <div className="account-pages"></div>
             <div className="clearfix"></div>
-            <div className="wrapper-page">
-                <div className="text-center">
-                    <NavLink  to="https://giveasily.ng/" className="logo">
-                        <img  src="assets/img/sam_img/favicon.ico" height="50" />
+            <div style={{background:"white",borderRadius:"10px"}} className="wrapper-page">
+                {/*<div className="text-center">
+                    <NavLink  to="/" className="logo">
+                        <img  src={mailIcon} height="50" />
                     </NavLink>
-                </div><br />
+                </div><br />*/}
                 
                 <div className="m-t-40 card-box">
-                    <div className="text-center">
+                    <div className="align-center">
                         <h4 className="text-uppercase font-bold m-b-0 color-white">Confirm Email</h4>
                     </div>
                     <div className="panel-body text-center">
-                        <img  src="assets/img/sam_img/mail_confirm.png" alt="img" height="100" className="thumb-lg m-t-20 center-block" />
-                        <p className="font-13 m-t-20 color-white">An email has been sent to&nbsp;&nbsp; 
-                            <span className="color-blue" id="cemail">{email}</span> Please Click on the included link to activate your account.</p>                </div>
+                        <img   src={mailIcon} alt="img" height="100" className="thumb-lg m-t-20 center-block" />
+                        <p className="font-13 m-t-20 p-3">An email has been sent to&nbsp;&nbsp; 
+                            <span className="color-blue" id="cemail"><b>{email}</b></span> Please click on the included link to activate your account.</p>                </div>
                 </div>
 
                 
                 <div className="row">
                     <div className="col-sm-12 text-center">
-                        <p className="color-white">Already have an account?
+                        <p >Already have an account?
                             <NavLink  to="/login" className="text-white m-l-5">
-                            <span className="color-blue">&nbsp;Login</span>
+                            <span className="color-blue">&nbsp;<b>Login</b></span>
                             </NavLink>
                         </p>
                     </div>
@@ -226,13 +230,13 @@ export const SideBarMenu = ()=>{
                 <div>
                     <span className="color-blue-variation-1  o-sidebar-header">PAYMENTS</span>
                     <ul  className="o-nav-ul p-0">
-                        <NavLink className="color-white" to='/'> <li className="cursor-pointer">
+                        <NavLink className="color-white" to='/dashboard/main'> <li className="cursor-pointer">
                             <CreditCardIcon style={{width:"9%", height:"9%"}} />
                             <span className="small"> Transactions</span>
                         </li>
                         </NavLink>         
                         <li    className="color-white cursor-pointer o-letter-spacing">
-                            <NavLink className="color-white" to='/pages'>
+                            <NavLink className="color-white" to='/dashboard/pages'>
                                 <PagesIcon style={{width:"9%", height:"9%"}} />
                                 <span className="small"> Pages</span>
                             </NavLink>
@@ -245,7 +249,7 @@ export const SideBarMenu = ()=>{
                     <span className="color-blue-variation-1  o-sidebar-header">TOOLS</span>
                     <ul className="o-nav-ul p-0">
                         <li className="color-white cursor-pointer o-letter-spacing">
-                            <NavLink className="color-white" to='/donations'>
+                            <NavLink className="color-white" to='/dashboard/donations'>
                                 <BusinessCenterIcon style={{width:"9%", height:"9%"}} />
                                 <span className="small"> Reconcilation</span>
                             </NavLink> 
@@ -256,7 +260,7 @@ export const SideBarMenu = ()=>{
                     <span className="color-blue-variation-1 o-sidebar-header">GLOBAL ADMIN</span>
                     <ul className="o-nav-ul p-0">
                         <li  to='/users'  className="cursor-pointer o-letter-spacing">
-                            <NavLink className="color-white" to='/users'>
+                            <NavLink className="color-white" to='/dashboard/users'>
                                 <PersonIcon style={{width:"8%", height:"8%"}} />
                                 <span className="small"> Users</span>
                             </NavLink>
@@ -269,3 +273,76 @@ export const SideBarMenu = ()=>{
 )
 }
 
+export const Header = ()=>(
+    <header>
+         <div className="d-container">
+            <nav>
+                  <input type="checkbox" id="nav" className="hidden" />
+                  <label htmlFor="nav" className="nav-btn">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                  </label>
+                  <div className="logo">
+                        <NavLink to="/"><img src={LogoIcon1} width="60%" /></NavLink>
+                  </div>
+                  <div className="nav-wrapper">
+                        <ul>
+                              <li><NavLink to="/pricing">pricing</NavLink></li>
+                              <li> <NavLink to="/company">Company</NavLink> </li>
+                              <li><NavLink to="/login">Login</NavLink> </li>
+                              <li><NavLink to="/register"><span>REGISTER</span></NavLink> </li>
+                        </ul>
+                  </div>
+            </nav>
+      </div> 
+    </header> 
+)
+
+export const Footer = ()=>(
+<div>
+       <footer id="allfoot">
+    <div className="d-container">
+    
+        
+        <ul className="allcontent row">
+        <div className="logoo col-md">
+            <img src={logoblueIcon} style={{width:"70%"}} />
+        </div>
+        <li  className="content1 col-md">
+            <h3>CONTACT</h3>
+            <p><b>Our Office:</b> LifePlus Complex, 113 Allen Avenue, <br />Ikeja, Lagos, Nigeria.
+         <br /><b>Tel:</b> +234-7036201650, +234-8050276578.
+        <br /> <b>E-mail:</b> support@giveasily.com
+         </p>
+       
+        </li>
+        
+        <li className="col-md">
+        <h3>COMPANY</h3>
+            <p>About Us<br />FAQs<br />Terms of Use <br /> Privacy Policy <br />Blog</p>      
+        </li>
+        
+        <li className="col-md">
+        <h3>QUICK LINKS</h3>
+            <p><NavLink to="/login" >Login</NavLink> <br />
+            <NavLink to="/register" >Register</NavLink> <br />
+             <NavLink to="/pricing" >Pricing</NavLink><br /> Facebook <br /> Twitter <br /> Instagram
+</p>
+        </li>
+    </ul>
+       </div>
+    </footer>
+    <section id="copy">  
+        
+         <div className="d-container">
+         
+        <div className="copy">
+         <p>&copy; 2018 Giveasily – A product of Gloveries Business Solutions Ltd.  All Rights Reserved.  </p>
+        </div>
+         
+         </div>
+        
+    </section>
+</div>
+)

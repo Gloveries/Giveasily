@@ -14,6 +14,7 @@ import moment from 'moment'
 import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import BackArrowIcon from '@material-ui/icons/KeyboardBackspace'
 import {ToastContainer, toast } from 'mdbreact';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
 const mapStateToProps = state =>{
@@ -72,6 +73,7 @@ componentDidMount() {
 
    this.getCompanyList();//gets the total companies list in the database
    this.fillTopCards(); // fill in data in the top information cards
+
 
    const notifications = [
        {
@@ -172,7 +174,7 @@ getCompanyList() {
             const companyList = response.data;
             console.log(companyList)
             if(companyList.length === 0) {
-                alert('no companies registered yet');
+                console.log('no companies registered yet');
                 return;
             }
             that.setState({
@@ -418,7 +420,9 @@ populatePurposeField = function (e) {
     // const purposes = coporate_body.purposes;
     const church_purposes = ['tithes','First Fruits','offerings','project','others']
     const other_purposes = ['contributions','project','others'];
-    const purposes = (this.coporate_body.church)? church_purposes:other_purposes;
+    // const purposes = (this.coporate_body.church)? church_purposes:other_purposes;
+    const purposes = (this.coporate_body.type_of_organisation === "religious_body")? church_purposes:other_purposes;
+
 
     this.setState({
         purposes
@@ -611,6 +615,7 @@ render() {
     return (
 
 <div style={{margin:"0 auto", width:"99%"}} className="m-0 p-0">
+
     <div className="row container">       
         <div className="col">
             <TopCard 
@@ -657,10 +662,11 @@ render() {
     {/*<Card style={{borderRight:"2px solid #290c49"}}>
         <CardBody>*/}
 <div className="row container ml-1"  >
+    <BrowserRouter><Route exact path="/demo" render={()=><h1>Hey there</h1>} /></BrowserRouter>
             <div className="col-sm-5 bg-white ">
             <form onSubmit={this.handleSubmit} className="donation-form">
                 
-            <h3 className="align-center pt-4">GiveQuickly<sup className="very-small">TM</sup></h3><br />
+            <h3 className="align-center pt-4">GiveQuickly<sup >&trade;</sup></h3><br />
             {/*<hr className="bg-theme" /><br />*/}
  
             <div  className="input-group">
@@ -723,16 +729,6 @@ render() {
             
             <div id="o-dashboard-notification-detail" className={viewMoreClass}>
                 <br />
-                {/*<div style={{position:"relative", width:"100%"}}>
-                        <div style={{ position:"absolute", width:"70%"}}>
-                            <h6>{this.state.notification_details.type}</h6>
-                            <p>due: {this.state.notification_details.date_to_redeem_pledge}</p>
-                            <p>amount: &#8358;{this.state.notification_details.amount}</p>
-                        </div>
-                    <div style={{position:"absolute", width:"30%"}}>
-                        <button >pledge</button>
-                    </div>
-                </div>*/}
 
 
             <div  className="input-group">
@@ -754,9 +750,9 @@ render() {
             <div id="o-dashboard-notification" className={NotificationsClass}>
             {this.state.notifications.map((N,i)=>{
 
-                return <div key={i}>
+                return <div onClick={()=>{this.viewNotification(N)}} key={i}>
                         <div className="p-1 py-2 o-notification-list">
-                            <div onClick={()=>{this.viewNotification(N)}} className="o-view-icon">
+                            <div className="o-view-icon">
                                 <ArrowRightIcon style={{color:"white"}} />
                             </div>
 

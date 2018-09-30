@@ -16,11 +16,12 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import blue from '@material-ui/core/colors/blue';
 import BookIcon from '@material-ui/icons/Book';
-import NewFolderIcon from '@material-ui/icons/CreateNewFolder'
+import NewFolderIcon from '@material-ui/icons/FolderOpen'
 import ReactLoading from 'react-loading'
 import { Card, CardBody } from 'mdbreact';
 import Checkbox from '@material-ui/core/Checkbox';
 import moment from 'moment';
+import { ToastContainer, toast } from 'mdbreact';
 
 import {getUrl} from '../data/urlController';
 import axios from 'axios';
@@ -42,6 +43,30 @@ class SimpleDialog extends React.Component {
         inputElements:['input-0'],
         buttonText:"CREATE PAGE"
     }
+
+
+ notify(type,message){
+  return () => {
+    switch (type) {
+      case 'info':
+        toast.info(message, {
+          autoClose: 10000
+        });
+        break;
+      case 'success':
+        toast.success(message, {
+          position: "top-right",
+        });
+        break;
+      case 'warning':
+        toast.warn(message);
+        break;
+      case 'error':
+        toast.error(message);
+        break;
+    }
+  };
+};
 
 createPage = (e)=>{
     e.preventDefault();
@@ -67,9 +92,13 @@ createPage = (e)=>{
     axios(options)
         .then((response)=>{
             console.log(response.data)
+            const pageData = response.data;
+            const {_id,slug} = pageData;
                 this.setState({
                     buttonText:"CREATE PAGE"
                 })
+                return this.notify('success',"page created succesfully")()
+                this.handleClose();
         })
         .catch((err)=>{
             // const error = err.response;
@@ -103,6 +132,7 @@ this.props.onClose(this.props.selectedValue);
     const { classes, onClose, selectedValue, ...other } = this.props;
 
     return (
+    <div>
       <Dialog onClose={this.handleClose}  aria-labelledby="simple-dialog-title" {...other}>
         <DialogTitle style={{textAlign:"center"}} id="simple-dialog-title">Create Page</DialogTitle>
             <div className="p-3">
@@ -141,6 +171,14 @@ this.props.onClose(this.props.selectedValue);
                 <span className="medium-font-size" onClick={this.addField} style={{float:"right",color:"blue"}}>+ add field</span>*/}
         </div>
       </Dialog>
+            <React.Fragment>
+        <ToastContainer
+          hideProgressBar={true}
+          newestOnTop={true}
+          autoClose={5000}
+        />
+      </React.Fragment>
+      </div>
     );
   }
 }
@@ -218,7 +256,7 @@ componentDidMount() {
   viewPage = pageData =>{
       const id = pageData._id
       const slug = pageData.slug
-      this.props.history.push(`/pages/${id}/${slug}`,{
+      this.props.history.push(`/dashboard/pages/${id}/${slug}`,{
           pageData
       })
   }
@@ -232,30 +270,30 @@ componentDidMount() {
           onClose={this.handleClose}
         />
             <div className="align-center">
-                <NewFolderIcon style={{width:"80px",height:"80px",color:"#290c49"}}  />
+                <NewFolderIcon style={{width:"80px",height:"80px",color:"green"}}  />
                 {/*<img className="m-3" src="assets/img/PlatformIcons/Mobilegiving.png" width="80px" height="60px" /><br />*/}
                 <h5 className="color-grey ">Create donations pages to begin recieving donations.<br /> Share this link to begin collecting payments</h5>
                 <button onClick={this.handleClickOpen} className="btn btn-success p-2"><AddIcon />  &nbsp; New Page</button>
             </div><br /><br />
-            <div className="o-overflow-x-auto">
-            <Card className="pages-card-format">
-                <CardBody className="p-0">
+            <div>
+            {/*<Card className="pages-card-format">
+                <CardBody className="p-0">*/}
                     <table className="table table-hover m-0">
                         <thead>
-                            <tr className="bg-theme color-white">
-                                <td>Status</td>
-                                <td>Name</td>
-                                <td>Type</td>
-                                <td>Amount</td>
-                                <td>Added On</td>
-                                <td>Link</td>
+                            <tr>
+                                <td className="page-table-row">Status</td>
+                                <td className="page-table-row">Name</td>
+                                <td className="page-table-row">Type</td>
+                                <td className="page-table-row">Amount</td>
+                                <td className="page-table-row">Added On</td>
+                                <td className="page-table-row">Link</td>
                             </tr>
                         </thead>
                         <tbody className="animated fadeIn">
 
                             {this.state.pages.map((U,i)=>{
                                 return (
-                                        <tr onClick={()=>{this.viewPage(U)}}  key={i}>
+                                        <tr className="cursor-pointer" onClick={()=>{this.viewPage(U)}}  key={i}>
                                             <td>{U.active === true? "active":"inactive"}</td>
                                             <td>{U.name}</td>
                                             <td>{U.type}</td>
@@ -273,8 +311,16 @@ componentDidMount() {
                         {this.state.pageMessage}
                     </div>
                     <span className={this.state.pageMessage?"o-loader-class color-red":"o-visibility-hidden"}>{this.state.pageMessage}</span>
-    </CardBody>
-</Card><br /></div>
+    {/*</CardBody>
+</Card>*/}
+<br /></div>
+      <React.Fragment>
+        <ToastContainer
+          hideProgressBar={true}
+          newestOnTop={true}
+          autoClose={5000}
+        />
+      </React.Fragment>
 </div>
     );
   }

@@ -11,6 +11,7 @@ import {getUrl} from '../data/urlController';
 import {addUser} from '../Actions';
 import {connect} from 'react-redux';
 import logoIcon from '../logo/logo.png'
+import LogoIcon1 from '../logo/Logo1.png'
 
 
 const mapDispatchToProps = dispatch =>{
@@ -51,7 +52,7 @@ class Register extends Component {
 
   addUserToRedux({type,payload}){
     this.props.storeUser({type,payload});
-    //this.props.history.push('/dashboard')
+    //this.props.history.push('/dashboard/main')
 
 }
 
@@ -83,7 +84,7 @@ class Register extends Component {
                      
                      that.addUserToRedux({type,data});
 
-                     that.props.history.push('/');
+                     that.props.history.push('/dashboard/main');
 
                 }
             }
@@ -120,17 +121,19 @@ class Register extends Component {
 
 render() {
     return (
-        <div className="o-center-card bg-theme">
+        <div className="bg-theme">
             <div className="text-center">
-                <NavLink  to="https://giveasily.ng/" className="logo">
-                    <img src={logoIcon} height="150" />
+                <NavLink  to="/" className="logo">
+                    <img src={LogoIcon1} width="50%"  />
                 </NavLink>
-            </div>    
+            </div>  
+          <div className="o-center-card" >
+  
 
              {/*<Container>*/}
-            <Card className="o-prep-card">
-              <CardBody>
-                <form  onSubmit={this.registerUser}>
+            {/*<Card className="o-prep-card">
+              <CardBody>*/}
+                <form className="p-4"   onSubmit={this.registerUser}>
                   <p className="h4 text-center color-theme">Sign up</p>
                   <div className="grey-text">
                     <Input className="m-0" label="Firstname" name="firstname"  group type="text" validate error="wrong" success="right"/>
@@ -138,7 +141,7 @@ render() {
                     <Input className="m-0" label="Your email" name="email"  group type="email" validate error="wrong" success="right"/>
                     <Input className="m-0" label="Password" name="password"  group type="password" validate/>
                     <Input className="m-0" label="Confirm Password" name="confirm_password"  group type="password" validate/>
-
+                    
                       <Select 
                         value={this.state.category}
                         onChange={this.handleChange}                       
@@ -154,9 +157,8 @@ render() {
                   <Button className="o-sidebar-header" type="submit" gradient="blue" className="btn-block z-depth-1a o-buttons">Register</Button>
                 </div>
                 </form>
-                <button onClick={this.notify('info')}>click me</button>
-              </CardBody>
-            </Card>
+              {/*</CardBody>
+            </Card>*/}
       {/*</Container>*/}
             <React.Fragment>
         {/*<button className='btn btn-info' onClick={this.notify('info')}>Info</button>
@@ -169,6 +171,7 @@ render() {
           autoClose={5000}
         />
       </React.Fragment>
+      </div>
         </div>
     )
 }

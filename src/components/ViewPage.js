@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import ReactLoading from 'react-loading'
-import { Card, CardBody } from 'mdbreact';
+import { Card, CardBody, ToastContainer, toast } from 'mdbreact';
 import Checkbox from '@material-ui/core/Checkbox';
 import moment from 'moment';
 import axios from 'axios';
@@ -8,7 +8,9 @@ import {getUrl }from '../data/urlController'
 import USER from '../data/userData'
 import CheckIcon from '@material-ui/icons/Check'
 import CopyIcon from '@material-ui/icons/FileCopy'
-import ArrowRightIcon from '@material-ui/icons/ArrowRightAlt'
+import ArrowRightIcon from '@material-ui/icons/ArrowRightAlt';
+
+
 class ViewPage extends Component {
     constructor(props){
         super(props);

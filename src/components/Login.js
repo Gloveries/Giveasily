@@ -31,7 +31,7 @@ class Login extends Component {
 addUserToRedux({type,payload}){
     // alert(JSON.stringify(type))
     this.props.storeUser({type,payload});
-    this.props.history.push('/')
+    this.props.history.push('/dashboard/main')
 
 }
 
@@ -76,7 +76,7 @@ loginUser(e) {
                 USER.setLocalStorageUserData(data)
                 console.log(payload)
                 that.addUserToRedux({type,payload})
-                let nextView = (data.completed_registeration)? '/dashboard':'/registeration/coporate';
+                let nextView = (data.completed_registeration)? '/dashboard/main':'/dashboard/registeration/coporate';
                 that.props.history.push(nextView);
              
 
