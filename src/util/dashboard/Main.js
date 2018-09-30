@@ -724,7 +724,9 @@ render() {
         <div className="col-sm-1"></div>
         <div className="bg-white col-sm-6 mr-0">
             <h3 className="align-center pt-3">Notifications</h3>
-            <p>There are no new notifications to display now. notifiations will display here</p>
+            <p style={{display:(this.state.notifications.length === 0)?"block":"none"}}>
+                There are no new notifications to display now. notifiations will display here
+            </p>
             <div className={backArrowClass} onClick={this.backToNotificationListView}><BackArrowIcon /> back</div>
             
             <div id="o-dashboard-notification-detail" className={viewMoreClass}>
